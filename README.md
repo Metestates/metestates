@@ -2,6 +2,8 @@
 
 The new digital land-rush is upon us! Will you become the next land-baron?
 
+![WIP](static/assets/readme/Screen%20Shot%202021-11-25%20at%2015.34.11.png)
+
 ## Codegen
 
 ### Generate GraphQL JSON Schema
