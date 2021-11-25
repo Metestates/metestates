@@ -1,5 +1,6 @@
 {
   "name": "metestates",
+  "description": "The new digital land-rush is upon us! Will you become the next land-baron?",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
