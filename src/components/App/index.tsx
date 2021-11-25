@@ -89,6 +89,7 @@ function App() {
 		loading: isParcelsLoading,
 		error: parcelsError,
 	}: GetSomeParcelsUseQueryResult = useQuery(getSomeParcelsQuery, {
+		errorPolicy: `all`,
 		variables: {
 			xGte: parcelBounds[0].x,
 			xLt: parcelBounds[1].x,
