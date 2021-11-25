@@ -40,6 +40,24 @@ function App() {
 		height: window.innerHeight,
 	})
 
+	React.useEffect(() => {
+
+		function onWindowResize()
+		{
+			setScreenDimensions({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			})
+		}
+
+		window.addEventListener(`resize`, onWindowResize)
+
+		return () => {
+			window.removeEventListener(`resize`, onWindowResize)
+		}
+
+	}, [window.innerWidth, window.innerHeight])
+
 	const origin: Coordinate = {
 		x: 23,
 		y: -7
