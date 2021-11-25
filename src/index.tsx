@@ -10,8 +10,10 @@ import {
 	ApolloProvider,
 } from '@apollo/client'
 
+import * as apolloConfig from '@apollo/config'
+
 const client = new ApolloClient({
-	uri: `https://api.thegraph.com/subgraphs/name/decentraland/marketplace`,
+	uri: apolloConfig.client.service.url,
 	cache: new InMemoryCache(),
 })
 

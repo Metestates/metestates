@@ -6,6 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@apollo/config": ["./apollo.config.js"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
