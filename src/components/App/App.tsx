@@ -58,6 +58,24 @@ function App() {
 
 	}, [window.innerWidth, window.innerHeight])
 
+	React.useEffect(() => {
+
+		function onMouseWheel(
+			event: WheelEvent)
+		{
+			setParcelCellSize(
+				parcelCellSize + ((event.deltaY < 0) ? -4 : 4)
+			)
+		}
+
+		window.addEventListener(`wheel`, onMouseWheel)
+
+		return () => {
+			window.removeEventListener(`wheel`, onMouseWheel)
+		}
+
+	}, [parcelCellSize, setParcelCellSize])
+
 	const origin: Coordinate = {
 		x: 23,
 		y: -7
