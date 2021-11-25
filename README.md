@@ -10,6 +10,15 @@ The new digital land-rush is upon us! Will you become the next land-baron?
 apollo client:download-schema ./marketplace.schema.json
 ```
 
+### Generate GraphQL TypeScript interfaces
+
+```bash
+apollo codegen:generate \
+    --localSchemaFile=./marketplace.schema.json \
+	--target=typescript \
+	--tagName=gql
+```
+
 ## Available Scripts
 
 In the project directory, you can run:

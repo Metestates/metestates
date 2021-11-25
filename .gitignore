@@ -27,3 +27,6 @@ package-lock.json
 
 # apollo / graphql schemas
 *.schema.json
+
+# apollo codegen
+__generated__
