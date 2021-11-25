@@ -1,3 +1,5 @@
+import { css } from '@emotion/css'
+
 import {
 	GET_SOME_PARCELS_parcels,
 	GET_SOME_PARCELS_parcels_data,
@@ -36,7 +38,10 @@ function ParcelDataInfo({ data }: { data: GET_SOME_PARCELS_parcels_data }) {
 
 function ParcelInfo({ parcel }: { parcel: GET_SOME_PARCELS_parcels }) {
 	return (
-		<div className="parcel">
+		<div
+			className={css({
+				backgroundColor: 'limegreen'
+			})}>
 			{/* Parcel coordinates */}
 			<p>
 				({parcel.x}, {parcel.y})

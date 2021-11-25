@@ -1,3 +1,5 @@
+import { css } from '@emotion/css'
+
 import {
 	useQuery,
 	gql,
@@ -96,13 +98,18 @@ function App() {
 	}
 
 	return (
-		<div className="app">
+		<div className={css({
+			backgroundColor: 'lightgray',
+		})}>
+
 			{parcelsConnection?.counts && (
 				<CountsList counts={parcelsConnection.counts}></CountsList>
 			)}
+
 			{parcelsConnection?.parcels && (
 				<ParcelsList parcels={parcelsConnection.parcels}></ParcelsList>
 			)}
+
 		</div>
 	)
 }
