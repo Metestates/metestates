@@ -20,6 +20,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "postinstall": "npm run apollo:download-schema && npm run apollo:codegen",
+    "apollo:download-schema": "apollo client:download-schema ./marketplace.schema.json",
+    "apollo:codegen": "apollo codegen:generate --localSchemaFile=./marketplace.schema.json --target=typescript --tagName=gql",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
