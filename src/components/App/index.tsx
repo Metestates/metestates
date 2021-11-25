@@ -41,7 +41,7 @@ function App() {
 		origin,
 		{
 			x: origin.x + 10,
-			y: origin.y + 10
+			y: origin.y - 10
 		},
 	]
 
@@ -49,8 +49,8 @@ function App() {
 		query GET_SOME_PARCELS_QUERY(
 			$xGte: BigInt
 			$xLt: BigInt
-			$yGte: BigInt
-			$yLt: BigInt
+			$yLte: BigInt
+			$yGt: BigInt
 		) {
 			counts(first: 1) {
 				id
@@ -59,7 +59,7 @@ function App() {
 				orderTotal
 			}
 			parcels(
-				where: { x_gte: $xGte, x_lt: $xLt, y_gte: $yGte, y_lt: $yLt }
+				where: { x_gte: $xGte, x_lt: $xLt, y_lte: $yLte, y_gt: $yGt }
 			) {
 				id
 				tokenId
@@ -92,8 +92,8 @@ function App() {
 		variables: {
 			xGte: parcelBounds[0].x,
 			xLt: parcelBounds[1].x,
-			yGte: parcelBounds[0].y,
-			yLt: parcelBounds[1].y,
+			yLte: parcelBounds[0].y,
+			yGt: parcelBounds[1].y,
 		},
 	})
 
