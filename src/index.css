@@ -15,3 +15,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hyperlink {
+  @apply text-blue-600 underline
+}
+
+.hyperlink:visited {
+  @apply text-purple-600
+}

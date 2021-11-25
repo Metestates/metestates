@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { css } from '@emotion/css'
 
 import {
@@ -11,8 +13,7 @@ import {
 
 import { GET_SOME_PARCELS } from '../../__generated__/GET_SOME_PARCELS'
 
-import CountsList from '../CountsList'
-import ParcelsList from '../ParcelsList'
+import ParcelGrid from '../ParcelGrid/ParcelGrid'
 
 import './App.css'
 
@@ -31,6 +32,13 @@ interface GetSomeParcelsUseQueryResult {
 }
 
 function App() {
+
+	const [parcelCellSize, setParcelCellSize] = React.useState(18)
+
+	const [screenDimensions, setScreenDimensions] = React.useState({
+		width: window.innerWidth,
+		height: window.innerHeight,
+	})
 
 	const origin: Coordinate = {
 		x: 23,
@@ -113,14 +121,19 @@ function App() {
 	return (
 		<div className={css({
 			backgroundColor: 'lightgray',
+			width: `${screenDimensions.width}px`,
+			height: `${screenDimensions.height}px`,
+			overflow: `hidden`,
 		})}>
 
-			{parcelsConnection?.counts && (
-				<CountsList counts={parcelsConnection.counts}></CountsList>
-			)}
-
 			{parcelsConnection?.parcels && (
-				<ParcelsList parcels={parcelsConnection.parcels}></ParcelsList>
+				<ParcelGrid
+					parcels={parcelsConnection.parcels}
+					parcelBounds={parcelBounds}
+					parcelCellSize={parcelCellSize}
+					screenDimensions={screenDimensions}
+				>
+				</ParcelGrid>
 			)}
 
 		</div>
