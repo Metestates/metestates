@@ -2,6 +2,14 @@
 
 The new digital land-rush is upon us! Will you become the next land-baron?
 
+## Codegen
+
+### Generate GraphQL JSON Schema
+
+```bash
+apollo client:download-schema ./marketplace.schema.json
+```
+
 ## Available Scripts
 
 In the project directory, you can run:

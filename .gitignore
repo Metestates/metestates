@@ -24,3 +24,6 @@ yarn-error.log*
 
 # using yarn.lock
 package-lock.json
+
+# apollo / graphql schemas
+*.schema.json
