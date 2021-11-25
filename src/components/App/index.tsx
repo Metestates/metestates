@@ -5,20 +5,18 @@ import {
 	// QueryResult,
 	// OperationVariables,
 	ApolloError,
-  } from '@apollo/client';
+} from '@apollo/client'
 
-  import { GET_SOME_PARCELS } from '../../__generated__/GET_SOME_PARCELS'
+import { GET_SOME_PARCELS } from '../../__generated__/GET_SOME_PARCELS'
 
-  import CountsList from '../CountsList'
-  import ParcelsList from '../ParcelsList'
+import CountsList from '../CountsList'
+import ParcelsList from '../ParcelsList'
 
-  import './App.css';
+import './App.css'
 
-  type Coordinate = { x: number; y: number }
+type Coordinate = { x: number; y: number }
 
-  function buildGetSomeParcelsQuery(
-	viewBoundary: Coordinate[]): DocumentNode
-  {
+function buildGetSomeParcelsQuery(viewBoundary: Coordinate[]): DocumentNode {
 	return gql`
 	  query GET_SOME_PARCELS_QUERY {
 		counts(first: 1) {
@@ -56,55 +54,53 @@ import {
 		}
 	  }
 	`
-  }
+}
 
-  // interface GetSomeParcelsUseQueryResult
-  //   extends QueryResult<GET_SOME_PARCELS, unknown> {}
+// interface GetSomeParcelsUseQueryResult
+//   extends QueryResult<GET_SOME_PARCELS, unknown> {}
 
-  interface GetSomeParcelsUseQueryResult {
+interface GetSomeParcelsUseQueryResult {
 	data?: GET_SOME_PARCELS,
 	loading: boolean,
-	error?: ApolloError
-  }
+	error?: ApolloError,
+}
 
-  function App() {
-
+function App() {
 	const parcelViewBoundary: Coordinate[] = [
-		  { x: 0, y: 0 },
-		  { x: 5, y: 5 },
+		{ x: 0, y: 0 },
+		{ x: 5, y: 5 },
 	]
 
 	const getSomeParcelsQuery = buildGetSomeParcelsQuery(parcelViewBoundary)
 
 	const {
-	  data: parcelsConnection,
-	  loading: isParcelsLoading,
-	  error: parcelsError
+		data: parcelsConnection,
+		loading: isParcelsLoading,
+		error: parcelsError,
 	}: GetSomeParcelsUseQueryResult = useQuery(getSomeParcelsQuery)
 
-	if(isParcelsLoading)
-	{
-	  return (
-		<span>Loading parcels…</span>
-	  )
+	if (isParcelsLoading) {
+		return <span>Loading parcels…</span>
 	}
 
-	if(parcelsError)
-	{
-	  return (
-		<span className="error">
-		  Error loading parcels: {JSON.stringify(parcelsError)}
-		</span>
-	  )
+	if (parcelsError) {
+		return (
+			<span className="error">
+				Error loading parcels: {JSON.stringify(parcelsError)}
+			</span>
+		)
 	}
 
 	return (
-	  <div className="app">
-		{parcelsConnection?.counts && <CountsList counts={parcelsConnection.counts}></CountsList>}
-		{parcelsConnection?.parcels && <ParcelsList parcels={parcelsConnection.parcels}></ParcelsList>}
-	  </div>
-	);
+		<div className="app">
+			{parcelsConnection?.counts && (
+				<CountsList counts={parcelsConnection.counts}></CountsList>
+			)}
+			{parcelsConnection?.parcels && (
+				<ParcelsList parcels={parcelsConnection.parcels}></ParcelsList>
+			)}
+		</div>
+	)
+}
 
-  }
-
-  export default App;
+export default App
