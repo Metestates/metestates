@@ -1,7 +1,7 @@
 import {
 	useQuery,
 	gql,
-	DocumentNode,
+	// DocumentNode,
 	// QueryResult,
 	// OperationVariables,
 	ApolloError,
@@ -16,46 +16,6 @@ import './App.css'
 
 type Coordinate = { x: number; y: number }
 
-function buildGetSomeParcelsQuery(viewBoundary: Coordinate[]): DocumentNode {
-	return gql`
-	  query GET_SOME_PARCELS_QUERY {
-		counts(first: 1) {
-		  id
-		  orderParcel
-		  orderEstate
-		  orderTotal
-		}
-		parcels(where: {
-		  x_gte: ${viewBoundary[0].x},
-		  x_lt: ${viewBoundary[1].x},
-		  y_gte: ${viewBoundary[0].y},
-		  y_lt: ${viewBoundary[1].y}
-		})
-		{
-		  id
-		  tokenId
-		  owner {
-			address
-		  }
-		  x
-		  y
-		  data {
-			name
-			description
-			ipns
-		  }
-		  estate {
-			id
-			tokenId
-			owner {
-			  address
-			}
-		  }
-		}
-	  }
-	`
-}
-
 // interface GetSomeParcelsUseQueryResult
 //   extends QueryResult<GET_SOME_PARCELS, unknown> {}
 
@@ -68,16 +28,60 @@ interface GetSomeParcelsUseQueryResult {
 function App() {
 	const parcelViewBoundary: Coordinate[] = [
 		{ x: 0, y: 0 },
-		{ x: 5, y: 5 },
+		{ x: 10, y: 10 },
 	]
 
-	const getSomeParcelsQuery = buildGetSomeParcelsQuery(parcelViewBoundary)
+	const getSomeParcelsQuery = gql`
+		query GET_SOME_PARCELS_QUERY(
+			$xGte: BigInt
+			$xLt: BigInt
+			$yGte: BigInt
+			$yLt: BigInt
+		) {
+			counts(first: 1) {
+				id
+				orderParcel
+				orderEstate
+				orderTotal
+			}
+			parcels(
+				where: { x_gte: $xGte, x_lt: $xLt, y_gte: $yGte, y_lt: $yLt }
+			) {
+				id
+				tokenId
+				owner {
+					address
+				}
+				x
+				y
+				data {
+					name
+					description
+					ipns
+				}
+				estate {
+					id
+					tokenId
+					owner {
+						address
+					}
+				}
+			}
+		}
+	`
 
 	const {
 		data: parcelsConnection,
 		loading: isParcelsLoading,
 		error: parcelsError,
-	}: GetSomeParcelsUseQueryResult = useQuery(getSomeParcelsQuery)
+	}: GetSomeParcelsUseQueryResult = useQuery(getSomeParcelsQuery, {
+		variables: {
+			xGte: parcelViewBoundary[0].x,
+			xLt: parcelViewBoundary[1].x,
+			yGte: parcelViewBoundary[0].y,
+			yLt: parcelViewBoundary[1].y,
+		},
+	})
 
 	if (isParcelsLoading) {
 		return <span>Loading parcels…</span>
