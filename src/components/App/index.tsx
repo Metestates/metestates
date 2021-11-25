@@ -16,7 +16,10 @@ import ParcelsList from '../ParcelsList'
 
 import './App.css'
 
-type Coordinate = { x: number; y: number }
+export type Coordinate = {
+	x: number;
+	y: number
+}
 
 // interface GetSomeParcelsUseQueryResult
 //   extends QueryResult<GET_SOME_PARCELS, unknown> {}
@@ -28,9 +31,18 @@ interface GetSomeParcelsUseQueryResult {
 }
 
 function App() {
-	const parcelViewBoundary: Coordinate[] = [
-		{ x: 0, y: 0 },
-		{ x: 10, y: 10 },
+
+	const origin: Coordinate = {
+		x: 23,
+		y: -7
+	}
+
+	const parcelBounds: Coordinate[] = [
+		origin,
+		{
+			x: origin.x + 10,
+			y: origin.y + 10
+		},
 	]
 
 	const getSomeParcelsQuery = gql`
@@ -78,10 +90,10 @@ function App() {
 		error: parcelsError,
 	}: GetSomeParcelsUseQueryResult = useQuery(getSomeParcelsQuery, {
 		variables: {
-			xGte: parcelViewBoundary[0].x,
-			xLt: parcelViewBoundary[1].x,
-			yGte: parcelViewBoundary[0].y,
-			yLt: parcelViewBoundary[1].y,
+			xGte: parcelBounds[0].x,
+			xLt: parcelBounds[1].x,
+			yGte: parcelBounds[0].y,
+			yLt: parcelBounds[1].y,
 		},
 	})
 
