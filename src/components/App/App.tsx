@@ -33,11 +33,16 @@ interface GetSomeParcelsUseQueryResult {
 
 function App() {
 
-	const [parcelCellSize, setParcelCellSize] = React.useState(18)
+	const [parcelCellSize, setParcelCellSize] = React.useState(64)
 
 	const [screenDimensions, setScreenDimensions] = React.useState({
 		width: window.innerWidth,
 		height: window.innerHeight,
+	})
+
+	const [origin, setOrigin] = React.useState({
+		x: 23,
+		y: -7
 	})
 
 	React.useEffect(() => {
@@ -76,10 +81,42 @@ function App() {
 
 	}, [parcelCellSize, setParcelCellSize])
 
-	const origin: Coordinate = {
-		x: 23,
-		y: -7
-	}
+	React.useEffect(() => {
+
+		function onKeydown(
+			event: KeyboardEvent)
+		{
+			const delta: Coordinate = { x: 0, y: 0 }
+
+			switch(event.key)
+			{
+				case `ArrowUp`:
+					delta.y = -1
+					break;
+				case `ArrowDown`:
+					delta.y = 1
+					break;
+				case `ArrowLeft`:
+					delta.x = 1
+					break;
+				case `ArrowRight`:
+					delta.x = -1
+					break;
+			}
+
+			setOrigin({
+				x: origin.x + delta.x,
+				y: origin.y + delta.y,
+			})
+		}
+
+		window.addEventListener(`keydown`, onKeydown)
+
+		return () => {
+			window.removeEventListener(`keydown`, onKeydown)
+		}
+
+	}, [origin, setOrigin])
 
 	const parcelBounds: Coordinate[] = [
 		origin,
