@@ -1,8 +1,9 @@
 import { GET_SOME_PARCELS_parcels } from 'src/__generated__/GET_SOME_PARCELS'
 
+import useParcel from '../../hooks/use-parcel'
+
 interface IParcelGridCellProps
 	extends React.PropsWithChildren<React.Attributes> {
-	parcels: GET_SOME_PARCELS_parcels[],
 	xMin: number,
 	yMax: number,
 	size: number,
@@ -39,7 +40,6 @@ const ParcelGridCellDefaultStyles = {
 }
 
 function ParcelGridCell({
-	parcels,
 	size: parcelCellSize,
 	xMin,
 	yMax,
@@ -47,26 +47,25 @@ function ParcelGridCell({
 	rowIndex,
 	style,
 }: IParcelGridCellProps) {
+	const { parcel, isBlockDataLoading, blockError } =
+		useParcel({ x: columnIndex + xMin, y: yMax - rowIndex })
 
-	const parcel = parcels.find(
-		(p) =>
-			parseInt(p.x) === columnIndex + xMin &&
-			parseInt(p.y) === yMax - rowIndex
-	)
-
-	if (!parcel) {
+	if (isBlockDataLoading || blockError || !parcel) {
 		return (
 			<div
 				style={{
-					opacity: 0.4,
+					opacity: isBlockDataLoading ? 0.4 : 0.8,
+					backgroundColor: blockError ? 'red' : 'grey',
 					...ParcelGridCellDefaultStyles,
 					...style
 				}}
 			>
 				<p>
-					{columnIndex + xMin},{yMax - rowIndex}
+					({columnIndex + xMin},{yMax - rowIndex})
+					{ isBlockDataLoading && `Loading…` }
+					{ blockError && `Error!` }
 				</p>
-				<p>?</p>
+
 			</div>
 		)
 	}
