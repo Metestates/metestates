@@ -6,7 +6,7 @@ import {
 } from '../../__generated__/GET_SOME_PARCELS'
 
 interface ParcelsListProps {
-	parcels: GET_SOME_PARCELS_parcels[]
+	parcels: GET_SOME_PARCELS_parcels[],
 }
 
 function ParcelDataInfo({ data }: { data: GET_SOME_PARCELS_parcels_data }) {

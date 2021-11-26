@@ -11,7 +11,7 @@ function CountsList({ counts }: CountsListProps) {
 	return (
 		<ul
 			className={css({
-				backgroundColor: 'none'
+				backgroundColor: 'none',
 			})}
 		>
 			<li className="counts-list-item">Parcels: {first.orderParcel}</li>
