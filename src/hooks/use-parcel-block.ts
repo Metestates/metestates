@@ -55,19 +55,18 @@ const getSomeParcelsQuery = gql`
 
 function useParcelBlock(blockCoords: Coordinate) {
 
-	const {
-		data: blockData,
-		loading: isBlockDataLoading,
-		error: blockError,
-	}: GetSomeParcelsUseQueryResult = useQuery(getSomeParcelsQuery, {
-		errorPolicy: `all`,
-		variables: {
-			xGte: blockCoords.x,
-			xLt: blockCoords.x + 10,
-			yLte: blockCoords.y,
-			yGt: blockCoords.y - 10,
-		},
-	})
+	const variables = {
+		xGte: blockCoords.x,
+		xLt: blockCoords.x + 10,
+		yLte: blockCoords.y,
+		yGt: blockCoords.y - 10,
+	}
+
+	const { data: blockData, loading: isBlockDataLoading, error: blockError }: GetSomeParcelsUseQueryResult =
+		useQuery(getSomeParcelsQuery, {
+			errorPolicy: `all`,
+			variables,
+		})
 
 	if(blockError)
 	{
