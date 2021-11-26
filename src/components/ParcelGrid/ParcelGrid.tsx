@@ -44,28 +44,31 @@ function ParcelGrid(
 	const itemData = buildItemData(parcelCellSize, xMin, yMax, selectedParcel, setSelectedParcel)
 
 	return (
-		<Grid
-			className={
-				css({
-					width: `${screenDimensions.width}px !important`,
-					height: `${screenDimensions.height}px !important`,
-					overflow: `hidden !important`,
-					'&:hover': {
-						cursor: `pointer`
-					}
-				})
-			}
-			width={screenDimensions.width}
-			height={screenDimensions.height}
-			columnWidth={parcelCellSize}
-			rowHeight={parcelCellSize}
-			columnCount={columnCount}
-			rowCount={rowCount}
-			itemKey={data => `(${data.columnIndex},${data.rowIndex})`}
-			itemData={itemData}
-		>
-			{ParcelGridCell}
-		</Grid>
+		<div onMouseLeave={() => setSelectedParcel(null)}>
+			<Grid
+				className={
+					css({
+						width: `${screenDimensions.width}px !important`,
+						height: `${screenDimensions.height}px !important`,
+						overflow: `hidden !important`,
+						'&:hover': {
+							cursor: `pointer`
+						}
+					})
+				}
+				width={screenDimensions.width}
+				height={screenDimensions.height}
+				columnWidth={parcelCellSize}
+				rowHeight={parcelCellSize}
+				columnCount={columnCount}
+				rowCount={rowCount}
+				itemKey={data => `(${data.columnIndex},${data.rowIndex})`}
+				itemData={itemData}
+			>
+				{ParcelGridCell}
+			</Grid>
+
+		</div>
 
 	)
 }
