@@ -1,3 +1,7 @@
+import * as React from 'react'
+
+import { areEqual } from 'react-window'
+
 import { GET_SOME_PARCELS_parcels } from 'src/__generated__/GET_SOME_PARCELS'
 
 import useParcel from '../../hooks/use-parcel'
@@ -42,12 +46,12 @@ const ParcelGridCellDefaultStyles = {
 	filter: `brightness(0.7)`,
 }
 
-function ParcelGridCell({
+const ParcelGridCell = React.memo(({
 	data,
 	columnIndex,
 	rowIndex,
 	style,
-}: IParcelGridCellProps) {
+}: IParcelGridCellProps) => {
 	const { parcel, isBlockDataLoading, blockError } =
 		useParcel({ x: columnIndex + data.xMin, y: data.yMax - rowIndex })
 
@@ -101,6 +105,6 @@ function ParcelGridCell({
 			)}
 		</div>
 	)
-}
+}, areEqual)
 
 export { ParcelGridCell }

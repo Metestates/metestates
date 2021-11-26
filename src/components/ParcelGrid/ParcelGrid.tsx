@@ -1,5 +1,7 @@
 import React from 'react';
 
+import memoize from 'memoize-one';
+
 import { css } from '@emotion/css';
 
 import {FixedSizeGrid as Grid} from 'react-window'
@@ -17,6 +19,10 @@ interface IParcelGridProps extends React.PropsWithChildren<React.Attributes> {
 	},
 }
 
+const buildItemData = memoize(
+	(size: number, xMin: number, yMax: number) => ({ size, xMin, yMax })
+)
+
 function ParcelGrid(
 	{ parcelBounds, parcelCellSize, screenDimensions }: IParcelGridProps)
 {
@@ -30,11 +36,7 @@ function ParcelGrid(
 	const columnCount = Math.ceil(screenDimensions.width / parcelCellSize)
 	const rowCount = Math.ceil(screenDimensions.height / parcelCellSize)
 
-	const itemData = {
-		size: parcelCellSize,
-		xMin,
-		yMax,
-	}
+	const itemData = buildItemData(parcelCellSize, xMin, yMax)
 
 	return (
 		<Grid
