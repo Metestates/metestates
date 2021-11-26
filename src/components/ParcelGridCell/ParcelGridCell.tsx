@@ -22,6 +22,14 @@ function getBackgroundColor(address: string): string {
 	return `#${address.substr(2, 8)}`
 }
 
+const MinimumSizeToShowDetails = 64
+
+const ParcelGridCellDefaultStyles = {
+	padding: `4px`,
+	fontSize: '9px',
+	filter: `brightness(0.7)`,
+}
+
 function ParcelGridCell({
 	parcels,
 	size: parcelCellSize,
@@ -31,7 +39,6 @@ function ParcelGridCell({
 	rowIndex,
 	style,
 }: IParcelGridCellProps) {
-	const MinimumSizeToShowDetails = 64
 
 	const parcel = parcels.find(
 		(p) =>
@@ -39,19 +46,13 @@ function ParcelGridCell({
 			parseInt(p.y) === yMax - rowIndex
 	)
 
-	const styleWithDefaults = {
-		padding: `4px`,
-		fontSize: '9px',
-		filter: `brightness(0.7)`,
-		...style,
-	}
-
 	if (!parcel) {
 		return (
 			<div
 				style={{
 					opacity: 0.4,
-					...styleWithDefaults
+					...ParcelGridCellDefaultStyles,
+					...style
 				}}
 			>
 				<p>
@@ -72,7 +73,8 @@ function ParcelGridCell({
 		<div
 			style={{
 				backgroundColor: getBackgroundColor(address),
-				...styleWithDefaults
+				...ParcelGridCellDefaultStyles,
+				...style,
 			}}
 		>
 			{parcelCellSize >= MinimumSizeToShowDetails && (
