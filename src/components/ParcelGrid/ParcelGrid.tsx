@@ -24,13 +24,11 @@ function ParcelGrid(
 	const parcelBoundsPadding = 0
 
 	const xMin = parcelBounds[0].x - parcelBoundsPadding
-	const yMin = parcelBounds[1].y - parcelBoundsPadding
 
-	const xMax = parcelBounds[1].x + parcelBoundsPadding
 	const yMax = parcelBounds[0].y + parcelBoundsPadding
 
-	const columnCount = xMax - xMin
-	const rowCount = yMax - yMin
+	const columnCount = Math.ceil(screenDimensions.width / parcelCellSize)
+	const rowCount = Math.ceil(screenDimensions.height / parcelCellSize)
 
 	return (
 		<Grid
