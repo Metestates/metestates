@@ -55,6 +55,40 @@ const ParcelGridCell = React.memo(({
 	const { parcel, isBlockDataLoading, blockError } =
 		useParcel({ x: columnIndex + data.xMin, y: data.yMax - rowIndex })
 
+	if(parcel)
+	{
+		const addr = address(parcel)
+		const shortAddr = short(addr)
+
+		return (
+			<div
+				style={{
+					backgroundColor: getBackgroundColor(addr),
+					...ParcelGridCellDefaultStyles,
+					...style,
+				}}
+			>
+				{data.size >= MinimumSizeToShowDetails && (
+					<>
+						<p>
+							{parcel.x},{parcel.y}
+						</p>
+						{addr !== DCL_DAO_CONTRACT && (
+							<a
+								className="hyperlink"
+								href={`https://etherscan.io/address/${addr}`}
+								rel="noopener noreferrer nofollow"
+								target="_blank"
+							>
+								{shortAddr}
+							</a>
+						)}
+					</>
+				)}
+			</div>
+		)
+	}
+
 	if (isBlockDataLoading || blockError || !parcel) {
 		return (
 			<div
@@ -75,36 +109,11 @@ const ParcelGridCell = React.memo(({
 		)
 	}
 
-	const addr = address(parcel)
-	const shortAddr = short(addr)
+	console.warn(`This should be impossible!`)
 
-	return (
-		<div
-			style={{
-				backgroundColor: getBackgroundColor(addr),
-				...ParcelGridCellDefaultStyles,
-				...style,
-			}}
-		>
-			{data.size >= MinimumSizeToShowDetails && (
-				<>
-					<p>
-						{parcel.x},{parcel.y}
-					</p>
-					{addr !== DCL_DAO_CONTRACT && (
-						<a
-							className="hyperlink"
-							href={`https://etherscan.io/address/${addr}`}
-							rel="noopener noreferrer nofollow"
-							target="_blank"
-						>
-							{shortAddr}
-						</a>
-					)}
-				</>
-			)}
-		</div>
-	)
+	return null
+
+
 }, areEqual)
 
 export { ParcelGridCell }
