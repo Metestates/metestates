@@ -2,11 +2,14 @@ import { GET_SOME_PARCELS_parcels } from 'src/__generated__/GET_SOME_PARCELS'
 
 import useParcel from '../../hooks/use-parcel'
 
-interface IParcelGridCellProps
-	extends React.PropsWithChildren<React.Attributes> {
+interface IParcelGridCellItemData {
 	xMin: number,
 	yMax: number,
 	size: number,
+}
+
+interface IParcelGridCellProps extends React.PropsWithChildren<React.Attributes> {
+	data: IParcelGridCellItemData;
 	columnIndex: number,
 	rowIndex: number,
 	style: React.CSSProperties,
@@ -40,15 +43,13 @@ const ParcelGridCellDefaultStyles = {
 }
 
 function ParcelGridCell({
-	size: parcelCellSize,
-	xMin,
-	yMax,
+	data,
 	columnIndex,
 	rowIndex,
 	style,
 }: IParcelGridCellProps) {
 	const { parcel, isBlockDataLoading, blockError } =
-		useParcel({ x: columnIndex + xMin, y: yMax - rowIndex })
+		useParcel({ x: columnIndex + data.xMin, y: data.yMax - rowIndex })
 
 	if (isBlockDataLoading || blockError || !parcel) {
 		return (
@@ -61,7 +62,7 @@ function ParcelGridCell({
 				}}
 			>
 				<p>
-					({columnIndex + xMin},{yMax - rowIndex})
+					({columnIndex + data.xMin},{data.yMax - rowIndex})
 					{ isBlockDataLoading && `Loading…` }
 					{ blockError && `Error!` }
 				</p>
@@ -81,7 +82,7 @@ function ParcelGridCell({
 				...style,
 			}}
 		>
-			{parcelCellSize >= MinimumSizeToShowDetails && (
+			{data.size >= MinimumSizeToShowDetails && (
 				<>
 					<p>
 						{parcel.x},{parcel.y}

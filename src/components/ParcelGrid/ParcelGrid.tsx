@@ -30,8 +30,19 @@ function ParcelGrid(
 	const columnCount = Math.ceil(screenDimensions.width / parcelCellSize)
 	const rowCount = Math.ceil(screenDimensions.height / parcelCellSize)
 
+	const itemData = {
+		size: parcelCellSize,
+		xMin,
+		yMax,
+	}
+
 	return (
 		<Grid
+			className={css({
+				width: `${screenDimensions.width}px !important`,
+				height: `${screenDimensions.height}px !important`,
+				overflow: `hidden !important`,
+			})}
 			width={screenDimensions.width}
 			height={screenDimensions.height}
 			columnWidth={parcelCellSize}
@@ -39,19 +50,9 @@ function ParcelGrid(
 			columnCount={columnCount}
 			rowCount={rowCount}
 			itemKey={data => `(${data.columnIndex},${data.rowIndex})`}
-			className={css({
-				width: `${screenDimensions.width}px !important`,
-				height: `${screenDimensions.height}px !important`,
-				overflow: `hidden !important`,
-			})}
+			itemData={itemData}
 		>
-			{(props) => ParcelGridCell({
-				size: parcelCellSize,
-				xMin,
-				yMax,
-				...props
-			})}
-
+			{ParcelGridCell}
 		</Grid>
 
 	)
