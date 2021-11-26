@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { css } from '@emotion/css'
 
 import {
@@ -15,6 +13,10 @@ import { Coordinate } from '../../types/coordinate'
 
 import { GET_SOME_PARCELS } from '../../__generated__/GET_SOME_PARCELS'
 
+import useScreenDimensions from '../../hooks/use-screen-dimensions'
+import useMousewheelScalable from '../../hooks/use-mousewheel-scalable'
+import useControlledCoordinate from '../../hooks/use-controlled-coordinate'
+
 import ParcelGrid from '../ParcelGrid/ParcelGrid'
 
 import './App.css'
@@ -29,97 +31,15 @@ interface GetSomeParcelsUseQueryResult {
 }
 
 function App() {
-
-	const [parcelCellSize, setParcelCellSize] = React.useState(64)
-
-	const [screenDimensions, setScreenDimensions] = React.useState({
-		width: window.innerWidth,
-		height: window.innerHeight,
-	})
-
-	const [origin, setOrigin] = React.useState({
-		x: 23,
-		y: -7
-	})
-
-	React.useEffect(() => {
-
-		function onWindowResize()
-		{
-			setScreenDimensions({
-				width: window.innerWidth,
-				height: window.innerHeight,
-			})
-		}
-
-		window.addEventListener(`resize`, onWindowResize)
-
-		return () => {
-			window.removeEventListener(`resize`, onWindowResize)
-		}
-
-	}, [window.innerWidth, window.innerHeight])
-
-	React.useEffect(() => {
-
-		function onMouseWheel(
-			event: WheelEvent)
-		{
-			setParcelCellSize(
-				parcelCellSize + ((event.deltaY < 0) ? -4 : 4)
-			)
-		}
-
-		window.addEventListener(`wheel`, onMouseWheel)
-
-		return () => {
-			window.removeEventListener(`wheel`, onMouseWheel)
-		}
-
-	}, [parcelCellSize, setParcelCellSize])
-
-	React.useEffect(() => {
-
-		function onKeydown(
-			event: KeyboardEvent)
-		{
-			const delta: Coordinate = { x: 0, y: 0 }
-
-			switch(event.key)
-			{
-				case `ArrowUp`:
-					delta.y = -1
-					break;
-				case `ArrowDown`:
-					delta.y = 1
-					break;
-				case `ArrowLeft`:
-					delta.x = 1
-					break;
-				case `ArrowRight`:
-					delta.x = -1
-					break;
-			}
-
-			setOrigin({
-				x: origin.x + delta.x,
-				y: origin.y + delta.y,
-			})
-		}
-
-		window.addEventListener(`keydown`, onKeydown)
-
-		return () => {
-			window.removeEventListener(`keydown`, onKeydown)
-		}
-
-	}, [origin, setOrigin])
+	const screenDimensions = useScreenDimensions()
+	const parcelCellSize = useMousewheelScalable(64, 4)
+	const origin = useControlledCoordinate({ x: 23, y: -7 })
 
 	const parcelBounds: Coordinate[] = [
 		origin,
 		{
 			x: origin.x + 10,
-			y: origin.y - 10
+			y: origin.y - 10,
 		},
 	]
 
@@ -189,23 +109,22 @@ function App() {
 	}
 
 	return (
-		<div className={css({
-			backgroundColor: 'lightgray',
-			width: `${screenDimensions.width}px`,
-			height: `${screenDimensions.height}px`,
-			overflow: `hidden`,
-		})}>
-
+		<div
+			className={css({
+				backgroundColor: 'lightgray',
+				width: `${screenDimensions.width}px`,
+				height: `${screenDimensions.height}px`,
+				overflow: `hidden`,
+			})}
+		>
 			{parcelsConnection?.parcels && (
 				<ParcelGrid
 					parcels={parcelsConnection.parcels}
 					parcelBounds={parcelBounds}
 					parcelCellSize={parcelCellSize}
 					screenDimensions={screenDimensions}
-				>
-				</ParcelGrid>
+				></ParcelGrid>
 			)}
-
 		</div>
 	)
 }
