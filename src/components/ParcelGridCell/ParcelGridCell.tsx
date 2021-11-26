@@ -14,6 +14,14 @@ interface IParcelGridCellProps
 // const ETH_DEAD_ADDRESS = `0x000000000000000000000000000000000000dEaD`
 const DCL_DAO_CONTRACT = `0x9a6ebe7e2a7722f8200d0ffb63a1f6406a0d7dce`
 
+function address(parcel: GET_SOME_PARCELS_parcels) {
+	return (parcel.estate ? parcel.estate : parcel).owner.address
+}
+
+function short(address: string) {
+	return `${address.slice(0, 5)}…${address.slice(address.length - 4)}`
+}
+
 function getBackgroundColor(address: string): string {
 	if (address === DCL_DAO_CONTRACT) {
 		return '#000'
@@ -63,16 +71,13 @@ function ParcelGridCell({
 		)
 	}
 
-	const address = (parcel.estate ? parcel.estate : parcel).owner.address
-
-	const shortAddress = `${address.slice(0, 5)}…${address.slice(
-		address.length - 4
-	)}`
+	const addr = address(parcel)
+	const shortAddr = short(addr)
 
 	return (
 		<div
 			style={{
-				backgroundColor: getBackgroundColor(address),
+				backgroundColor: getBackgroundColor(addr),
 				...ParcelGridCellDefaultStyles,
 				...style,
 			}}
@@ -82,14 +87,14 @@ function ParcelGridCell({
 					<p>
 						{parcel.x},{parcel.y}
 					</p>
-					{address !== DCL_DAO_CONTRACT && (
+					{addr !== DCL_DAO_CONTRACT && (
 						<a
 							className="hyperlink"
-							href={`https://etherscan.io/address/${address}`}
+							href={`https://etherscan.io/address/${addr}`}
 							rel="noopener noreferrer nofollow"
 							target="_blank"
 						>
-							{shortAddress}
+							{shortAddr}
 						</a>
 					)}
 				</>
