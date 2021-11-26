@@ -20,40 +20,41 @@ interface GetSomeParcelsUseQueryResult {
 	error?: ApolloError,
 }
 
-function useParcelBlock(blockCoords: Coordinate) {
-
-	const getSomeParcelsQuery = gql`
-		query GET_SOME_PARCELS_QUERY(
-			$xGte: BigInt
-			$xLt: BigInt
-			$yLte: BigInt
-			$yGt: BigInt
+const getSomeParcelsQuery = gql`
+	query GET_SOME_PARCELS_QUERY(
+		$xGte: BigInt
+		$xLt: BigInt
+		$yLte: BigInt
+		$yGt: BigInt
+	) {
+		parcels(
+			where: { x_gte: $xGte, x_lt: $xLt, y_lte: $yLte, y_gt: $yGt }
 		) {
-			parcels(
-				where: { x_gte: $xGte, x_lt: $xLt, y_lte: $yLte, y_gt: $yGt }
-			) {
-				id
+			id
+			# tokenId
+			owner {
+				address
+			}
+			x
+			y
+			# data {
+			# 	name
+			# 	description
+			# 	ipns
+			# }
+			estate {
+				# id
 				# tokenId
 				owner {
 					address
 				}
-				x
-				y
-				# data {
-				# 	name
-				# 	description
-				# 	ipns
-				# }
-				estate {
-					# id
-					# tokenId
-					owner {
-						address
-					}
-				}
 			}
 		}
-	`
+	}
+`
+
+function useParcelBlock(blockCoords: Coordinate) {
+
 	const {
 		data: blockData,
 		loading: isBlockDataLoading,
