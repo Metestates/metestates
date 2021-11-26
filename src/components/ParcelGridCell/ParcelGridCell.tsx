@@ -1,6 +1,6 @@
 import { GET_SOME_PARCELS_parcels } from "src/__generated__/GET_SOME_PARCELS";
 
-interface IParcelCellProps extends React.PropsWithChildren<React.Attributes> {
+interface IParcelGridCellProps extends React.PropsWithChildren<React.Attributes> {
 	parcels: GET_SOME_PARCELS_parcels[];
 	xMin: number,
 	yMax: number,
@@ -25,7 +25,7 @@ function getBackgroundColor(
 }
 
 function ParcelGridCell(
-	{ parcels, size: parcelCellSize, xMin, yMax, columnIndex, rowIndex, style }: IParcelCellProps)
+	{ parcels, size: parcelCellSize, xMin, yMax, columnIndex, rowIndex, style }: IParcelGridCellProps)
 {
 
 	const MinimumSizeToShowDetails = 64;
