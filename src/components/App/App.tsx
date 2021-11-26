@@ -14,6 +14,8 @@ function App() {
 	const screenDimensions = useScreenDimensions()
 	const parcelCellSize = useMousewheelScalable(64, {
 		delta: 4,
+		minValue: 20,
+		maxValue: 80,
 	})
 	const origin = useControlledCoordinate({ x: 23, y: -7 })
 

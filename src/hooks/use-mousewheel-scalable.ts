@@ -2,6 +2,19 @@ import * as React from 'react'
 
 interface IUseMousewheelScalableOptions {
 	delta: number,
+	minValue?: number,
+	maxValue?: number,
+}
+
+function clamp(
+	value: number,
+	min: number = -Infinity,
+	max: number = Infinity): number
+{
+	return Math.max(
+		min || -Infinity,
+		Math.min(value, max || Infinity)
+	)
 }
 
 function useMousewheelScalable(
@@ -19,7 +32,9 @@ function useMousewheelScalable(
 				-1 * options.delta :
 				options.delta)
 
-			setScalableValue(newValue)
+			const clampedValue = clamp(newValue, options.minValue, options.maxValue)
+
+			setScalableValue(clampedValue)
 
 		}
 
