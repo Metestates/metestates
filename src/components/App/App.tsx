@@ -11,16 +11,13 @@ import {
 	ApolloError,
 } from '@apollo/client'
 
+import { Coordinate } from '../../types/coordinate'
+
 import { GET_SOME_PARCELS } from '../../__generated__/GET_SOME_PARCELS'
 
 import ParcelGrid from '../ParcelGrid/ParcelGrid'
 
 import './App.css'
-
-export type Coordinate = {
-	x: number;
-	y: number
-}
 
 // interface GetSomeParcelsUseQueryResult
 //   extends QueryResult<GET_SOME_PARCELS, unknown> {}

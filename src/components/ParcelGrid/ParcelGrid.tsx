@@ -4,9 +4,10 @@ import { css } from '@emotion/css';
 
 import {FixedSizeGrid as Grid} from 'react-window'
 
+import { Coordinate } from '../../types/coordinate'
+
 import { GET_SOME_PARCELS_parcels } from '../../__generated__/GET_SOME_PARCELS'
 
-import { Coordinate } from '../App/App'
 import { ParcelGridCell } from '../ParcelGridCell/ParcelGridCell'
 
 interface IParcelGridProps extends React.PropsWithChildren<React.Attributes> {
