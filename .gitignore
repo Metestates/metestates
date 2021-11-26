@@ -30,3 +30,9 @@ package-lock.json
 
 # apollo codegen
 __generated__
+
+# Sketch files
+_Sketch
+
+# Scratch
+SCRATCH*
