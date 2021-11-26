@@ -10,6 +10,8 @@ interface IParcelGridCellItemData {
 	xMin: number,
 	yMax: number,
 	size: number,
+	selectedParcel: GET_SOME_PARCELS_parcels|null,
+	setSelectedParcel: Function
 }
 
 interface IParcelGridCellProps extends React.PropsWithChildren<React.Attributes> {
@@ -30,9 +32,52 @@ function short(address: string) {
 	return `${address.slice(0, 5)}…${address.slice(address.length - 4)}`
 }
 
-function getBackgroundColor(address: string): string {
+function hasSameOwner(
+	parcel: GET_SOME_PARCELS_parcels,
+	selectedParcel: GET_SOME_PARCELS_parcels): boolean
+{
+
+	if (selectedParcel.estate || parcel.estate)
+	{
+		if(selectedParcel.estate && parcel.estate)
+		{
+			if(selectedParcel.estate.owner.address === parcel.estate.owner.address)
+			{
+				return true
+			}
+		}
+		else if(selectedParcel.estate)
+		{
+			if(selectedParcel.estate.owner.address === parcel.owner.address)
+			{
+				return true
+			}
+		}
+		else if(selectedParcel.owner.address === parcel.estate?.owner.address)
+		{
+			return true
+		}
+	} else if (parcel.owner.address === selectedParcel.owner.address) {
+		return true
+	}
+
+	return false
+
+}
+
+function getBackgroundColor(
+	parcel: GET_SOME_PARCELS_parcels,
+	selectedParcel: GET_SOME_PARCELS_parcels|null,
+	address: string): string
+{
+
 	if (address === DCL_DAO_CONTRACT) {
 		return '#000'
+	}
+
+	if (selectedParcel && hasSameOwner(parcel, selectedParcel))
+	{
+		return `white`
 	}
 
 	return `#${address.substr(2, 8)}`
@@ -60,10 +105,14 @@ const ParcelGridCell = React.memo(({
 		const addr = address(parcel)
 		const shortAddr = short(addr)
 
+		const backgroundColor = getBackgroundColor(
+			parcel, data.selectedParcel, addr)
+
 		return (
 			<div
+				onMouseEnter={() => data.setSelectedParcel(parcel)}
 				style={{
-					backgroundColor: getBackgroundColor(addr),
+					backgroundColor,
 					...ParcelGridCellDefaultStyles,
 					...style,
 				}}

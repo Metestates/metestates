@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { css } from '@emotion/css'
 
 import { Coordinate } from '../../types/coordinate'
@@ -27,6 +29,8 @@ function App() {
 		},
 	]
 
+	const [selectedParcel, setSelectedParcel] = React.useState(null)
+
 	return (
 		<div
 			className={css({
@@ -40,6 +44,8 @@ function App() {
 				parcelBounds={parcelBounds}
 				parcelCellSize={parcelCellSize}
 				screenDimensions={screenDimensions}
+				selectedParcel={selectedParcel}
+				setSelectedParcel={setSelectedParcel}
 			></ParcelGrid>
 		</div>
 	)

@@ -8,6 +8,8 @@ import {FixedSizeGrid as Grid} from 'react-window'
 
 import { Coordinate } from '../../types/coordinate'
 
+import { GET_SOME_PARCELS_parcels } from '../../__generated__/GET_SOME_PARCELS';
+
 import { ParcelGridCell } from '../ParcelGridCell/ParcelGridCell'
 
 interface IParcelGridProps extends React.PropsWithChildren<React.Attributes> {
@@ -17,14 +19,17 @@ interface IParcelGridProps extends React.PropsWithChildren<React.Attributes> {
 		width: number,
 		height: number,
 	},
+	selectedParcel: GET_SOME_PARCELS_parcels|null,
+	setSelectedParcel: Function,
 }
 
 const buildItemData = memoize(
-	(size: number, xMin: number, yMax: number) => ({ size, xMin, yMax })
+	(size: number, xMin: number, yMax: number, selectedParcel, setSelectedParcel) =>
+		({ size, xMin, yMax, selectedParcel, setSelectedParcel })
 )
 
 function ParcelGrid(
-	{ parcelBounds, parcelCellSize, screenDimensions }: IParcelGridProps)
+	{ parcelBounds, parcelCellSize, screenDimensions, selectedParcel, setSelectedParcel }: IParcelGridProps)
 {
 
 	const parcelBoundsPadding = 0
@@ -36,15 +41,20 @@ function ParcelGrid(
 	const columnCount = Math.ceil(screenDimensions.width / parcelCellSize)
 	const rowCount = Math.ceil(screenDimensions.height / parcelCellSize)
 
-	const itemData = buildItemData(parcelCellSize, xMin, yMax)
+	const itemData = buildItemData(parcelCellSize, xMin, yMax, selectedParcel, setSelectedParcel)
 
 	return (
 		<Grid
-			className={css({
-				width: `${screenDimensions.width}px !important`,
-				height: `${screenDimensions.height}px !important`,
-				overflow: `hidden !important`,
-			})}
+			className={
+				css({
+					width: `${screenDimensions.width}px !important`,
+					height: `${screenDimensions.height}px !important`,
+					overflow: `hidden !important`,
+					'&:hover': {
+						cursor: `pointer`
+					}
+				})
+			}
 			width={screenDimensions.width}
 			height={screenDimensions.height}
 			columnWidth={parcelCellSize}
