@@ -1,15 +1,12 @@
 import { css } from '@emotion/css'
 
-import {
-	GET_SOME_PARCELS_parcels,
-	GET_SOME_PARCELS_parcels_data,
-} from '../../__generated__/GET_SOME_PARCELS'
+import { Parcel, ParcelData } from '../../types/parcel'
 
 interface ParcelsListProps {
-	parcels: GET_SOME_PARCELS_parcels[],
+	parcels: Parcel[],
 }
 
-function ParcelDataInfo({ data }: { data: GET_SOME_PARCELS_parcels_data }) {
+function ParcelDataInfo({ data }: { data: ParcelData }) {
 	return (
 		<ul className="parcel-metadata-list">
 			{/* Name */}
@@ -36,7 +33,7 @@ function ParcelDataInfo({ data }: { data: GET_SOME_PARCELS_parcels_data }) {
 	)
 }
 
-function ParcelInfo({ parcel }: { parcel: GET_SOME_PARCELS_parcels }) {
+function ParcelInfo({ parcel }: { parcel: Parcel }) {
 	return (
 		<div
 			className={css({

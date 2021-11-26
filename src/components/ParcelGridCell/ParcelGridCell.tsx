@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { areEqual } from 'react-window'
 
-import { GET_SOME_PARCELS_parcels } from 'src/__generated__/GET_SOME_PARCELS'
+import { Parcel } from '../../types/parcel'
 
 import useParcel from '../../hooks/use-parcel'
 
@@ -10,7 +10,7 @@ interface IParcelGridCellItemData {
 	xMin: number,
 	yMax: number,
 	size: number,
-	selectedParcel: GET_SOME_PARCELS_parcels|null,
+	selectedParcel: Parcel|null,
 	setSelectedParcel: Function
 }
 
@@ -24,7 +24,7 @@ interface IParcelGridCellProps extends React.PropsWithChildren<React.Attributes>
 // const ETH_DEAD_ADDRESS = `0x000000000000000000000000000000000000dEaD`
 const DCL_DAO_CONTRACT = `0x9a6ebe7e2a7722f8200d0ffb63a1f6406a0d7dce`
 
-function address(parcel: GET_SOME_PARCELS_parcels) {
+function address(parcel: Parcel) {
 	return (parcel.estate ? parcel.estate : parcel).owner.address
 }
 
@@ -33,8 +33,8 @@ function short(address: string) {
 }
 
 function hasSameOwner(
-	parcel: GET_SOME_PARCELS_parcels,
-	selectedParcel: GET_SOME_PARCELS_parcels): boolean
+	parcel: Parcel,
+	selectedParcel: Parcel): boolean
 {
 
 	if (selectedParcel.estate || parcel.estate)
@@ -66,8 +66,8 @@ function hasSameOwner(
 }
 
 function getBackgroundColor(
-	parcel: GET_SOME_PARCELS_parcels,
-	selectedParcel: GET_SOME_PARCELS_parcels|null,
+	parcel: Parcel,
+	selectedParcel: Parcel|null,
 	address: string): string
 {
 

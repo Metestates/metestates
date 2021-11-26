@@ -1,6 +1,5 @@
 import { Coordinate } from '../types/coordinate'
-
-import { GET_SOME_PARCELS_parcels } from '../__generated__/GET_SOME_PARCELS'
+import { Parcel } from '../types/parcel'
 
 import useParcelBlock from './use-parcel-block'
 
@@ -15,7 +14,7 @@ function useParcel(parcelCoords: Coordinate) {
 
 	const { blockData, isBlockDataLoading, blockError } = useParcelBlock(blockCoords)
 
-	let parcel: GET_SOME_PARCELS_parcels|undefined
+	let parcel: Parcel|undefined
 
 	if(!isBlockDataLoading && !blockError)
 	{
