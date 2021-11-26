@@ -12,7 +12,9 @@ import './App.css'
 
 function App() {
 	const screenDimensions = useScreenDimensions()
-	const parcelCellSize = useMousewheelScalable(64, 4)
+	const parcelCellSize = useMousewheelScalable(64, {
+		delta: 4,
+	})
 	const origin = useControlledCoordinate({ x: 23, y: -7 })
 
 	const parcelBounds: Coordinate[] = [
