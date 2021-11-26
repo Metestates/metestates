@@ -9,20 +9,21 @@ function useControlledCoordinate(coord: Coordinate = { x: 0, y: 0 }) {
 	React.useEffect(() => {
 
 		function onKeydown(event: KeyboardEvent) {
+			const step = 9
 			const delta: Coordinate = { x: 0, y: 0 }
 
 			switch (event.key) {
 				case `ArrowUp`:
-					delta.y = -1
+					delta.y = step
 					break;
 				case `ArrowDown`:
-					delta.y = 1
+					delta.y = -step
 					break;
 				case `ArrowLeft`:
-					delta.x = 1
+					delta.x = -step
 					break;
 				case `ArrowRight`:
-					delta.x = -1
+					delta.x = step
 					break;
 			}
 
