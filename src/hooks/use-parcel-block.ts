@@ -22,14 +22,20 @@ interface GetSomeParcelsUseQueryResult {
 	error?: ApolloError,
 }
 
+// See:
+//
+// https://thegraph.com/docs/developer/developer-faq#22-is-there-a-limit-\
+//  to-how-many-objects-the-graph-can-return-per-query
+
 const getSomeParcelsQuery = gql`
-	query GET_SOME_PARCELS_QUERY(
+		$first: Int,
 		$xGte: BigInt
 		$xLt: BigInt
 		$yLte: BigInt
 		$yGt: BigInt
 	) {
 		parcels(
+			first: $first,
 			where: { x_gte: $xGte, x_lt: $xLt, y_lte: $yLte, y_gt: $yGt }
 		) {
 			id
@@ -58,6 +64,7 @@ const getSomeParcelsQuery = gql`
 function useParcelBlock(blockCoords: Coordinate) {
 
 	const variables: GET_PARCEL_BLOCKVariables = {
+		first: AppConfig.ParcelsPerQuery,
 		xGte: blockCoords.x,
 		xLt: blockCoords.x + Math.sqrt(AppConfig.ParcelsPerQuery),
 		yLte: blockCoords.y,
