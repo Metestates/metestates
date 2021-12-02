@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import { Coordinate } from '../types/coordinate'
 
+import AppConfig from '../config/app-config'
+
 function useControlledCoordinate(coord: Coordinate = { x: 0, y: 0 }) {
 
 	const [coordinate, setCoordiante] = React.useState(coord)
@@ -9,7 +11,7 @@ function useControlledCoordinate(coord: Coordinate = { x: 0, y: 0 }) {
 	React.useEffect(() => {
 
 		function onKeydown(event: KeyboardEvent) {
-			const step = 9
+			const step = AppConfig.PanningStep;
 			const delta: Coordinate = { x: 0, y: 0 }
 
 			switch (event.key) {

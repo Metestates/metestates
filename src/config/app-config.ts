@@ -6,6 +6,7 @@ export interface IAppConfig {
 	ParcelPixelMaxWidth: number;
 	ParcelsPerQuery: number,
 	Origin: Coordinate;
+	PanningStep: number;
 }
 
 // @NOTE(mzalla) To call `api.thegraph.com`, we can only fetch up to a maximum
@@ -19,6 +20,7 @@ const AppConfig: IAppConfig = {
 	ParcelPixelMaxWidth: 80,
 	ParcelsPerQuery: ParcelBlockWidth * ParcelBlockWidth,
 	Origin: { x: 0, y: 0 },
+	PanningStep: 3,
 }
 
 export default AppConfig
