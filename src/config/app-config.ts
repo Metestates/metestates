@@ -1,8 +1,11 @@
+import { Coordinate } from '../types/coordinate'
+
 export interface IAppConfig {
 	ParcelPixelWidth: number;
 	ParcelPixelMinWidth: number;
 	ParcelPixelMaxWidth: number;
 	ParcelsPerQuery: number,
+	Origin: Coordinate;
 }
 
 // @NOTE(mzalla) To call `api.thegraph.com`, we can only fetch up to a maximum
@@ -15,6 +18,7 @@ const AppConfig: IAppConfig = {
 	ParcelPixelMinWidth: 14,
 	ParcelPixelMaxWidth: 80,
 	ParcelsPerQuery: ParcelBlockWidth * ParcelBlockWidth,
+	Origin: { x: 0, y: 0 },
 }
 
 export default AppConfig

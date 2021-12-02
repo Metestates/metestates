@@ -21,7 +21,7 @@ function App() {
 		minValue: AppConfig.ParcelPixelMinWidth,
 		maxValue: AppConfig.ParcelPixelMaxWidth,
 	})
-	const origin = useControlledCoordinate({ x: 23, y: -7 })
+	const origin = useControlledCoordinate(AppConfig.Origin)
 
 	const parcelBounds: Coordinate[] = [
 		origin,
