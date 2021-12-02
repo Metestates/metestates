@@ -36,7 +36,8 @@ function App() {
 	return (
 		<div
 			className={css({
-				backgroundColor: 'lightgray',
+				color: `lightgray`,
+				backgroundColor: `white`,
 				width: `${screenDimensions.width}px`,
 				height: `${screenDimensions.height}px`,
 				overflow: `hidden`,

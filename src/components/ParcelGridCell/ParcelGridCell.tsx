@@ -75,12 +75,17 @@ function getBackgroundColor(
 		return '#000'
 	}
 
-	if (selectedParcel && hasSameOwner(parcel, selectedParcel))
+	return `#${address.substr(2, 8)}`
+}
+
+function getGrayscaleFilterValue(parcel: Parcel, selectedParcel: Parcel|null): string
+{
+	if (selectedParcel&& !hasSameOwner(parcel, selectedParcel))
 	{
-		return `white`
+		return `0.95`
 	}
 
-	return `#${address.substr(2, 8)}`
+	return `0.0`
 }
 
 const MinimumSizeToShowDetails = 64
@@ -88,7 +93,8 @@ const MinimumSizeToShowDetails = 64
 const ParcelGridCellDefaultStyles = {
 	padding: `4px`,
 	fontSize: '9px',
-	filter: `brightness(0.7)`,
+	filter: `grayscale(0.0)`,
+	transition: `filter 0.35s ease-in-out`,
 }
 
 const ParcelGridCell = React.memo(({
@@ -103,10 +109,12 @@ const ParcelGridCell = React.memo(({
 	if(parcel)
 	{
 		const addr = address(parcel)
-		const shortAddr = short(addr)
 
 		const backgroundColor = getBackgroundColor(
 			parcel, data.selectedParcel, addr)
+
+		const grayscaleFilterValue = getGrayscaleFilterValue(
+			parcel, data.selectedParcel)
 
 		return (
 			<div
@@ -114,6 +122,7 @@ const ParcelGridCell = React.memo(({
 				style={{
 					backgroundColor,
 					...ParcelGridCellDefaultStyles,
+					filter: `grayscale(${grayscaleFilterValue})`,
 					...style,
 				}}
 			>
