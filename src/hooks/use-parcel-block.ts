@@ -11,6 +11,8 @@ import { GET_SOME_PARCELS } from '../__generated__/GET_SOME_PARCELS'
 
 import { Coordinate } from "../types/coordinate";
 
+import AppConfig from '../config/app-config'
+
 // interface GetSomeParcelsUseQueryResult
 //   extends QueryResult<GET_SOME_PARCELS, unknown> {}
 
@@ -55,11 +57,11 @@ const getSomeParcelsQuery = gql`
 
 function useParcelBlock(blockCoords: Coordinate) {
 
-	const variables = {
+	const variables: GET_PARCEL_BLOCKVariables = {
 		xGte: blockCoords.x,
-		xLt: blockCoords.x + 10,
+		xLt: blockCoords.x + Math.sqrt(AppConfig.ParcelsPerQuery),
 		yLte: blockCoords.y,
-		yGt: blockCoords.y - 10,
+		yGt: blockCoords.y - Math.sqrt(AppConfig.ParcelsPerQuery),
 	}
 
 	const { data: blockData, loading: isBlockDataLoading, error: blockError }: GetSomeParcelsUseQueryResult =

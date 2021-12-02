@@ -4,6 +4,8 @@ import { css } from '@emotion/css'
 
 import { Coordinate } from '../../types/coordinate'
 
+import AppConfig from '../../config/app-config'
+
 import useScreenDimensions from '../../hooks/use-screen-dimensions'
 import useMousewheelScalable from '../../hooks/use-mousewheel-scalable'
 import useControlledCoordinate from '../../hooks/use-controlled-coordinate'
@@ -24,8 +26,8 @@ function App() {
 	const parcelBounds: Coordinate[] = [
 		origin,
 		{
-			x: origin.x + 10,
-			y: origin.y - 10,
+			x: origin.x + Math.sqrt(AppConfig.ParcelsPerQuery),
+			y: origin.y - Math.sqrt(AppConfig.ParcelsPerQuery),
 		},
 	]
 

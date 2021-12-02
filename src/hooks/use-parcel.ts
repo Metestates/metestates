@@ -1,6 +1,8 @@
 import { Coordinate } from '../types/coordinate'
 import { Parcel } from '../types/parcel'
 
+import AppConfig from '../config/app-config'
+
 import useParcelBlock from './use-parcel-block'
 
 function useParcel(parcelCoords: Coordinate) {
@@ -8,8 +10,8 @@ function useParcel(parcelCoords: Coordinate) {
 	// Maps parcel coordinate to block (anchor) coordiante
 
 	const blockCoords: Coordinate = {
-		x: parcelCoords.x - (parcelCoords.x % 10),
-		y: parcelCoords.y - (parcelCoords.y % 10),
+		x: parcelCoords.x - (parcelCoords.x % Math.sqrt(AppConfig.ParcelsPerQuery)),
+		y: parcelCoords.y - (parcelCoords.y % Math.sqrt(AppConfig.ParcelsPerQuery)),
 	}
 
 	const { blockData, isBlockDataLoading, blockError } = useParcelBlock(blockCoords)
