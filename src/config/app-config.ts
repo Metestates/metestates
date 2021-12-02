@@ -1,4 +1,5 @@
 export interface IAppConfig {
+	ParcelPixelWidth: number;
 	ParcelsPerQuery: number,
 }
 
@@ -8,6 +9,7 @@ export interface IAppConfig {
 const ParcelBlockWidth = 4
 
 const AppConfig: IAppConfig = {
+	ParcelPixelWidth: 32,
 	ParcelsPerQuery: ParcelBlockWidth * ParcelBlockWidth,
 }
 
