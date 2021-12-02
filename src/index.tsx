@@ -4,6 +4,13 @@ import './index.css'
 import App from './components/App/App'
 import reportWebVitals from './reportWebVitals'
 
+import localForage from 'localforage'
+
+import {
+	persistCache,
+	LocalForageWrapper
+} from 'apollo3-cache-persist'
+
 import {
 	ApolloClient,
 	InMemoryCache,
@@ -12,24 +19,58 @@ import {
 
 import * as apolloConfig from '@apollo/config'
 
-const client = new ApolloClient({
-	uri: apolloConfig.client.service.url,
-	cache: new InMemoryCache(),
-})
+async function getClient() {
+	const cache = new InMemoryCache({
+		typePolicies: {
+			Parcel: {
+				keyFields: ['x', 'y']
+			},
+		}
+	})
 
-ReactDOM.render(
+	localForage.config({
+		name: 'metestates',
+		storeName: 'keyvaluepairs',
+		description: 'Local storage for the Metestates web app.'
+	})
 
-	<React.StrictMode>
-		<ApolloProvider client={client}>
-			<App />
-		</ApolloProvider>
-	</React.StrictMode>,
+	await persistCache({
+		cache: cache,
+		storage: new LocalForageWrapper(localForage),
+	})
 
-	document.getElementById('root')
+	const client = new ApolloClient({
+		// https://api.decentraland.org/v1/tiles
+		uri: apolloConfig.client.service.url,
+		cache: cache,
+		name: `Metestates`,
+		version: `0.1.0`,
+	})
 
-)
+	return client
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals()
+async function init() {
+
+	const client = await getClient()
+
+	ReactDOM.render(
+
+		<React.StrictMode>
+			<ApolloProvider client={client}>
+				<App />
+			</ApolloProvider>
+		</React.StrictMode>,
+
+		document.getElementById('root')
+
+	)
+
+	// If you want to start measuring performance in your app, pass a function
+	// to log results (for example: reportWebVitals(console.log))
+	// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+	reportWebVitals()
+
+}
+
+init()
