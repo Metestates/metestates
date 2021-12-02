@@ -7,7 +7,7 @@ import {
 	ApolloError,
 } from '@apollo/client'
 
-import { GET_SOME_PARCELS } from '../__generated__/GET_SOME_PARCELS'
+import { GET_PARCEL_BLOCK, GET_PARCEL_BLOCKVariables } from './__generated__/GET_PARCEL_BLOCK'
 
 import { Coordinate } from "../types/coordinate";
 
@@ -17,7 +17,7 @@ import AppConfig from '../config/app-config'
 //   extends QueryResult<GET_SOME_PARCELS, unknown> {}
 
 interface GetSomeParcelsUseQueryResult {
-	data?: GET_SOME_PARCELS,
+	data?: GET_PARCEL_BLOCK,
 	loading: boolean,
 	error?: ApolloError,
 }
@@ -28,6 +28,7 @@ interface GetSomeParcelsUseQueryResult {
 //  to-how-many-objects-the-graph-can-return-per-query
 
 const getSomeParcelsQuery = gql`
+	query GET_PARCEL_BLOCK(
 		$first: Int,
 		$xGte: BigInt
 		$xLt: BigInt
