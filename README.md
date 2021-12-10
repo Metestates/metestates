@@ -4,6 +4,29 @@ The new digital land-rush is upon us! Will you become the next land-baron?
 
 ![WIP](static/assets/readme/ipad-pro@2x.png)
 
+## Dependencies
+
+```bash
+$ npm i -g graphql apollo
+changed 478 packages, and audited 479 packages in 16s
+
+$ nvm use 16
+Now using node v16.13.1 (npm v8.1.2)
+
+$ node --version
+v16.13.1
+
+$ npm --version
+8.1.2
+
+$ npm list -g
+~/.nvm/versions/node/v16.13.1/lib
+├── apollo@2.33.9
+├── corepack@0.10.0
+├── graphql@16.1.0
+└── npm@8.1.2
+```
+
 ## Codegen
 
 ### Generate GraphQL JSON Schema
