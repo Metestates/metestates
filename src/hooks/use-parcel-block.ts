@@ -80,7 +80,7 @@ function useParcelBlock(blockCoords: Coordinate) {
 
 	if(blockError)
 	{
-		console.warn(`Failed to fetch block at (${blockCoords.x, blockCoords.y}): ${JSON.stringify(blockError)}`)
+		console.warn(`Failed to fetch block at (${blockCoords.x}, ${blockCoords.y}): ${JSON.stringify(blockError)}`)
 	}
 
 	return { blockData, isBlockDataLoading, blockError }
