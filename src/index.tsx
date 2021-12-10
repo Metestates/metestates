@@ -41,8 +41,8 @@ async function getClient() {
 		// https://api.decentraland.org/v1/tiles
 		uri: `https://api.thegraph.com/subgraphs/name/decentraland/marketplace`,
 		cache: cache,
-		name: `Metestates`,
-		version: `0.1.0`,
+		// name: `Metestates`,
+		// version: `0.1.0`,
 	})
 
 	return client
