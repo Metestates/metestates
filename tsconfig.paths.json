@@ -1,7 +1,0 @@
-{
-	"compilerOptions": {
-		"paths": {
-			"@apollo/config": ["./apollo.config.js"]
-		}
-	}
-}

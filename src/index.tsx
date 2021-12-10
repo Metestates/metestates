@@ -17,8 +17,6 @@ import {
 	ApolloProvider,
 } from '@apollo/client'
 
-import * as apolloConfig from '@apollo/config'
-
 async function getClient() {
 	const cache = new InMemoryCache({
 		typePolicies: {
@@ -41,7 +39,7 @@ async function getClient() {
 
 	const client = new ApolloClient({
 		// https://api.decentraland.org/v1/tiles
-		uri: apolloConfig.client.service.url,
+		uri: `https://api.thegraph.com/subgraphs/name/decentraland/marketplace`,
 		cache: cache,
 		name: `Metestates`,
 		version: `0.1.0`,
