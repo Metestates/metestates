@@ -32,10 +32,10 @@ async function getClient() {
 		description: 'Local storage for the Metestates web app.'
 	})
 
-	await persistCache({
-		cache: cache,
-		storage: new LocalForageWrapper(localForage),
-	})
+	// await persistCache({
+	// 	cache: cache,
+	// 	storage: new LocalForageWrapper(localForage),
+	// })
 
 	const client = new ApolloClient({
 		// https://api.decentraland.org/v1/tiles
