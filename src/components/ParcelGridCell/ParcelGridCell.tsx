@@ -88,8 +88,6 @@ function getGrayscaleFilterValue(parcel: Parcel, selectedParcel: Parcel|null): s
 	return `0.0`
 }
 
-const MinimumSizeToShowDetails = 64
-
 const ParcelGridCellDefaultStyles = {
 	padding: `4px`,
 	fontSize: '9px',
@@ -126,23 +124,24 @@ const ParcelGridCell = React.memo(({
 					...style,
 				}}
 			>
-				{data.size >= MinimumSizeToShowDetails && (
-					<>
-						<p>
-							{parcel.x},{parcel.y}
-						</p>
-						{addr !== DCL_DAO_CONTRACT && (
-							<a
-								className="hyperlink"
-								href={`https://etherscan.io/address/${addr}`}
-								rel="noopener noreferrer nofollow"
-								target="_blank"
-							>
-								{shortAddr}
-							</a>
-						)}
-					</>
-				)}
+				{/*
+				{
+					data.size >= MinimumSizeToShowDetails &&
+					addr !== DCL_DAO_CONTRACT && (
+						`${parcel.x},${parcel.y}`
+						// <p>
+						// 	<a
+						// 		className="hyperlink"
+						// 		href={`https://etherscan.io/address/${addr}`}
+						// 		rel="noopener noreferrer nofollow"
+						// 		target="_blank"
+						// 	>
+						// 		{shortAddr}
+						// 	</a>
+						// </p>
+					)
+				}
+				*/}
 			</div>
 		)
 	}
