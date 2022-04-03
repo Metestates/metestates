@@ -32,6 +32,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
+    "browse": "open https://github.com/Metestates/metestates/",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
