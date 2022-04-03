@@ -3,6 +3,7 @@
   "description": "The new digital land-rush is upon us! Will you become the next land-baron?",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://metestates.github.io/metestates/",
   "dependencies": {
     "@apollo/client": "^3.5.5",
     "@craco/craco": "^6.4.2",
