@@ -1,6 +1,7 @@
 // Importing modules
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import { WalletData } from "src/types/walletdata";
 import "./App.css";
 
 function ConnectToWallet() {
