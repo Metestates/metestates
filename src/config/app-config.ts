@@ -4,6 +4,7 @@ export interface IAppConfig {
 	ParcelPixelWidth: number;
 	ParcelPixelMinWidth: number;
 	ParcelPixelMaxWidth: number;
+	ParcelBlockWidth: number,
 	ParcelsPerQuery: number,
 	Origin: Coordinate;
 	PanningStep: number;
@@ -18,6 +19,7 @@ const AppConfig: IAppConfig = {
 	ParcelPixelWidth: 32,
 	ParcelPixelMinWidth: 14,
 	ParcelPixelMaxWidth: 80,
+	ParcelBlockWidth,
 	ParcelsPerQuery: ParcelBlockWidth * ParcelBlockWidth,
 	Origin: { x: 0, y: 0 },
 	PanningStep: 3,
