@@ -2,6 +2,7 @@ import React from 'react'
 
 import { css } from '@emotion/css'
 
+import { Parcel } from '../../types/parcel'
 import { Coordinate } from '../../types/coordinate'
 
 import AppConfig from '../../config/app-config'
@@ -31,7 +32,7 @@ function App() {
 		},
 	]
 
-	const [selectedParcel, setSelectedParcel] = React.useState(null)
+	const [selectedParcel, setSelectedParcel] = React.useState<Parcel|null>(null)
 
 	return (
 		<div
