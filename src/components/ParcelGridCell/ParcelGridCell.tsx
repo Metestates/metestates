@@ -64,7 +64,7 @@ function hasSameOwner(
 
 }
 
-function getBackgroundColor(
+function getParcelColor(
 	parcel: Parcel,
 	selectedParcel: Parcel|null,
 	address: string): string
@@ -109,8 +109,10 @@ const ParcelGridCell = React.memo(({
 	{
 		const addr = address(parcel)
 
-		const backgroundColor = getBackgroundColor(
-			parcel, data.selectedParcel, addr)
+		const backgroundColor = getParcelColor(
+			parcel,
+			data.selectedParcel,
+			addr)
 
 		const grayscaleFilterValue =
 			`${getGrayscaleFilterValue(parcel, data.selectedParcel)}`
