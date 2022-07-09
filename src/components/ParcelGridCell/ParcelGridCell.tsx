@@ -4,9 +4,13 @@ import { areEqual } from 'react-window'
 
 import { Parcel } from '../../types/parcel'
 
-import { DAOContractAddress } from '../../constants/DAOContractAddress'
-
 import useParcel from '../../hooks/use-parcel'
+
+import {
+	address,
+	getParcelColor,
+	getGrayscaleFilterValue
+} from '../../utils/parcel'
 
 interface IParcelGridCellItemData {
 	xMin: number,
@@ -21,72 +25,6 @@ interface IParcelGridCellProps extends React.PropsWithChildren<React.Attributes>
 	columnIndex: number,
 	rowIndex: number,
 	style: React.CSSProperties,
-}
-
-function address(parcel: Parcel) {
-	return (parcel.estate ? parcel.estate : parcel).owner.address
-}
-
-function short(address: string) {
-	return `${address.slice(0, 5)}…${address.slice(address.length - 4)}`
-}
-
-function hasSameOwner(
-	parcel: Parcel,
-	selectedParcel: Parcel): boolean
-{
-
-	if (selectedParcel.estate || parcel.estate)
-	{
-		if(selectedParcel.estate && parcel.estate)
-		{
-			if(selectedParcel.estate.owner.address === parcel.estate.owner.address)
-			{
-				return true
-			}
-		}
-		else if(selectedParcel.estate)
-		{
-			if(selectedParcel.estate.owner.address === parcel.owner.address)
-			{
-				return true
-			}
-		}
-		else if(selectedParcel.owner.address === parcel.estate?.owner.address)
-		{
-			return true
-		}
-	} else if (parcel.owner.address === selectedParcel.owner.address) {
-		return true
-	}
-
-	return false
-
-}
-
-function getParcelColor(
-	parcel: Parcel,
-	selectedParcel: Parcel|null,
-	address: string): string
-{
-
-	if (address === DAOContractAddress) {
-		return '#000'
-	}
-
-	return `#${address.substr(2, 8)}`
-}
-
-function getGrayscaleFilterValue(
-	parcel: Parcel,
-	selectedParcel: Parcel|null): number
-{
-	if (selectedParcel&& !hasSameOwner(parcel, selectedParcel))
-	{
-		return 0.95
-	}
-
-	return 0
 }
 
 const ParcelGridCellDefaultStyles = {
