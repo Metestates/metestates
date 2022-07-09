@@ -1,8 +1,12 @@
 import * as React from 'react'
 
-function useScreenDimensions() {
+import { Dimensions } from '../types/dimensions'
 
-	const [screenDimensions, setScreenDimensions] = React.useState({
+type UseScreenDimensionsHookResult = Dimensions
+
+const useScreenDimensions = (): UseScreenDimensionsHookResult => {
+
+	const [screenDimensions, setScreenDimensions] = React.useState<Dimensions>({
 		width: window.innerWidth,
 		height: window.innerHeight,
 	})
@@ -22,7 +26,10 @@ function useScreenDimensions() {
 			window.removeEventListener(`resize`, onWindowResize)
 		}
 
-	}, [window.innerWidth, window.innerHeight])
+	}, [
+		window.innerWidth,
+		window.innerHeight
+	])
 
 	return screenDimensions
 

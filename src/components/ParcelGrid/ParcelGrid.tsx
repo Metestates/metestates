@@ -8,18 +8,16 @@ import {FixedSizeGrid as Grid} from 'react-window'
 
 import { Coordinate } from '../../types/coordinate'
 import { Parcel } from '../../types/parcel'
+import { Dimensions } from '../../types/dimensions';
 
 import { ParcelGridCell } from '../ParcelGridCell/ParcelGridCell'
 
 interface IParcelGridProps extends React.PropsWithChildren<React.Attributes> {
-	parcelBounds: Coordinate[],
-	parcelCellSize: number,
-	screenDimensions: {
-		width: number,
-		height: number,
-	},
-	selectedParcel: Parcel|null,
-	setSelectedParcel: Function,
+	parcelBounds: Coordinate[];
+	parcelCellSize: number;
+	screenDimensions: Dimensions;
+	selectedParcel: Parcel|null;
+	setSelectedParcel: Function;
 }
 
 const buildItemData = memoize(
