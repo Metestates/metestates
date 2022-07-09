@@ -4,6 +4,8 @@ import { areEqual } from 'react-window'
 
 import { Parcel } from '../../types/parcel'
 
+import { DAOContractAddress } from '../../constants/DAOContractAddress'
+
 import useParcel from '../../hooks/use-parcel'
 
 interface IParcelGridCellItemData {
@@ -20,9 +22,6 @@ interface IParcelGridCellProps extends React.PropsWithChildren<React.Attributes>
 	rowIndex: number,
 	style: React.CSSProperties,
 }
-
-// const ETH_DEAD_ADDRESS = `0x000000000000000000000000000000000000dEaD`
-const DCL_DAO_CONTRACT = `0x9a6ebe7e2a7722f8200d0ffb63a1f6406a0d7dce`
 
 function address(parcel: Parcel) {
 	return (parcel.estate ? parcel.estate : parcel).owner.address
@@ -71,7 +70,7 @@ function getBackgroundColor(
 	address: string): string
 {
 
-	if (address === DCL_DAO_CONTRACT) {
+	if (address === DAOContractAddress) {
 		return '#000'
 	}
 
@@ -127,7 +126,7 @@ const ParcelGridCell = React.memo(({
 				{/*
 				{
 					data.size >= MinimumSizeToShowDetails &&
-					addr !== DCL_DAO_CONTRACT && (
+					addr !== DAOContractAddress && (
 						`${parcel.x},${parcel.y}`
 						// <p>
 						// 	<a

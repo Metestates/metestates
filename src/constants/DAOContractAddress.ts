@@ -1,0 +1,3 @@
+export const DAOContractAddress = `0x9a6ebe7e2a7722f8200d0ffb63a1f6406a0d7dce`
+
+// const ETH_DEAD_ADDRESS = `0x000000000000000000000000000000000000dEaD`
