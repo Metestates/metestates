@@ -1,0 +1,19 @@
+{
+  "usesTypeScript": true,
+  "usesCssModule": false,
+  "cssPreprocessor": "none",
+  "testLibrary": "Testing Library",
+  "component": {
+    "default": {
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false,
+      "customTemplates": {
+        "component": "./generate-react-templates/TemplateName.tsx",
+        "style": "./generate-react-templates/TemplateName.css"
+      }
+    }
+  }
+}
