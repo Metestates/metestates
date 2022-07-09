@@ -1,6 +1,5 @@
 import {
 	useQuery,
-	gql,
 	// DocumentNode,
 	// QueryResult,
 	// OperationVariables,
@@ -10,6 +9,8 @@ import {
 import { GET_PARCEL_BLOCK, GET_PARCEL_BLOCKVariables } from './__generated__/GET_PARCEL_BLOCK'
 
 import { Coordinate } from "../types/coordinate";
+
+import getBlockDataQuery from '../queries/getBlockData';
 
 import AppConfig from '../config/app-config'
 
@@ -22,46 +23,6 @@ interface GetSomeParcelsUseQueryResult {
 	error?: ApolloError,
 }
 
-// See:
-//
-// https://thegraph.com/docs/developer/developer-faq#22-is-there-a-limit-\
-//  to-how-many-objects-the-graph-can-return-per-query
-
-const getSomeParcelsQuery = gql`
-	query GET_PARCEL_BLOCK(
-		$first: Int,
-		$xGte: BigInt
-		$xLt: BigInt
-		$yLte: BigInt
-		$yGt: BigInt
-	) {
-		parcels(
-			first: $first,
-			where: { x_gte: $xGte, x_lt: $xLt, y_lte: $yLte, y_gt: $yGt }
-		) {
-			id
-			# tokenId
-			owner {
-				address
-			}
-			x
-			y
-			# data {
-			# 	name
-			# 	description
-			# 	ipns
-			# }
-			estate {
-				# id
-				# tokenId
-				owner {
-					address
-				}
-			}
-		}
-	}
-`
-
 function useParcelBlock(blockCoords: Coordinate) {
 
 	const variables: GET_PARCEL_BLOCKVariables = {
@@ -73,7 +34,7 @@ function useParcelBlock(blockCoords: Coordinate) {
 	}
 
 	const { data: blockData, loading: isBlockDataLoading, error: blockError }: GetSomeParcelsUseQueryResult =
-		useQuery(getSomeParcelsQuery, {
+		useQuery(getBlockDataQuery, {
 			errorPolicy: `all`,
 			variables,
 		})
