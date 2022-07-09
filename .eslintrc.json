@@ -6,5 +6,6 @@
 			},
 			"typescript": {}
 		}
-	}
+	},
+	"parser": "@typescript-eslint/parser"
 }
