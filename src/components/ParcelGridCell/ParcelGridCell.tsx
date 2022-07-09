@@ -59,7 +59,7 @@ const ParcelGridCell = React.memo(({
 			<div
 				onMouseEnter={() => data.setSelectedParcel(parcel)}
 				style={{
-					backgroundColor,
+					backgroundColor: `rgba(${backgroundColor.join(',')})`,
 					...ParcelGridCellDefaultStyles,
 					filter: `grayscale(${grayscaleFilterValue})`,
 					...style,

@@ -1,5 +1,7 @@
 import { Parcel } from '../types/parcel'
 
+import { Color } from '../types/color'
+
 import { DAOContractAddress } from '../constants/DAOContractAddress'
 
 function address(parcel: Parcel) {
@@ -25,17 +27,26 @@ function getGrayscaleFilterValue(
 	return 0
 }
 
-
 function getParcelColor(
 	parcel: Parcel,
 	selectedParcel: Parcel|null,
-	address: string): string
+	address: string): Color
 {
 	if (address === DAOContractAddress) {
-		return '#000'
+		return [0, 0, 0, 255]
 	}
 
-	return `#${address.substring(2, 8)}`
+	//    0            12           24           36
+	// 0x 9a6ebe7e2a77 22f8200d0ffb 63a1f6406a0d 7dce
+
+	address = address.slice(2)
+
+	let r = parseInt(address.slice(0, 12), 16) % 256
+	let g = parseInt(address.slice(12, 24), 16) % 256
+	let b = parseInt(address.slice(24, 36), 16) % 256
+	let a = 255
+
+	return [r, g, b, a]
 }
 
 function hasSameOwner(
