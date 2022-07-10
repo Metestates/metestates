@@ -1,8 +1,11 @@
 import { Parcel } from '../types/parcel'
 
 import { Color } from '../types/color'
+import { Coordinate } from '../types/coordinate'
 
 import { DAOContractAddress } from '../constants/DAOContractAddress'
+
+import AppConfig from '../config/app-config'
 
 function address(parcel: Parcel) {
 	return (parcel.estate ? parcel.estate : parcel).owner.address
@@ -10,6 +13,16 @@ function address(parcel: Parcel) {
 
 function short(address: string) {
 	return `${address.slice(0, 5)}…${address.slice(address.length - 4)}`
+}
+
+function getBlockCoordinate(
+	parcelX: number,
+	parcelY: number): Coordinate
+{
+	return {
+		x: parcelX - (parcelX % AppConfig.ParcelBlockWidth),
+		y: parcelY - (parcelY % AppConfig.ParcelBlockWidth),
+	}
 }
 
 function getParcelSaturation(
@@ -88,4 +101,5 @@ export {
 	getParcelSaturation,
 	getParcelColor,
 	hasSameOwner,
+	getBlockCoordinate,
 }
