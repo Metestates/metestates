@@ -71,7 +71,7 @@ type CanvasParcelGridProps = React.PropsWithChildren<{
 
 const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
   size,
-  parcelBounds,
+  parcelBounds: [origin],
   parcelSize,
   selectedParcel,
   setSelectedParcel
@@ -110,8 +110,6 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
           parcelSize,
           parcelSize,
         ]
-
-        const origin = parcelBounds[0]
 
         let x = columnIndex + origin.x
         let y = origin.y - rowIndex
@@ -180,13 +178,11 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     context,
     size,
     parcelSize,
-    parcelBounds[0],
+    origin,
     selectedParcel
   ])
 
   const handleMouseMove = React.useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
-
-    const origin = parcelBounds[0]
 
     let canvasX = event.pageX - event.currentTarget.offsetLeft;
     let canvasY = event.pageY - event.currentTarget.offsetTop;
@@ -226,7 +222,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
 
   }, [
     canvasRef.current,
-    parcelBounds,
+    origin,
     parcelSize,
     setSelectedParcel,
   ])
@@ -269,7 +265,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
       context,
       size,
       parcelSize,
-      parcelBounds[0],
+      origin,
     ]
   )
 
