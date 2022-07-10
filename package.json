@@ -2,7 +2,6 @@
   "name": "metestates",
   "description": "The new digital land-rush is upon us! Will you become the next land-baron?",
   "version": "0.1.0",
-  "homepage": "https://metestates.github.io",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.5.5",
