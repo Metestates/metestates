@@ -15,7 +15,13 @@ import getBlockDataQuery from '../../queries/getBlockData';
 
 import { BlockDataQueryVariables, BlockDataResult } from '../../hooks/use-parcel-block';
 
-import { address, getParcelSaturation, getParcelColor, getBlockCoordinate } from '../../utils/parcel';
+import {
+  address,
+  getParcelSaturation,
+  getParcelColor,
+  getBlockCoordinate,
+  findParcel
+} from '../../utils/parcel';
 
 type BlockDataResultPromiseCache = {
   [key: string]: Promise<BlockDataResult>
@@ -134,7 +140,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
 
         getParcelPromise(x, y, apolloClient, cache)
 
-          .then(({ data: blockData, error, loading }: BlockDataResult) => {
+          .then(({ data: block, error, loading }: BlockDataResult) => {
 
               if(JSON.stringify(capturedOrigin) !== JSON.stringify(originRef.current)) {
                 return;
@@ -158,12 +164,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
 
               } else {
 
-                parcel = blockData?.parcels.find(
-                  p => !!(
-                    parseInt(p.x) === x &&
-                    parseInt(p.y) === y
-                  )
-                )
+                parcel = findParcel(block || { parcels: []}, x, y)
 
                 if(parcel)
                 {
@@ -248,14 +249,9 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
             return;
           }
 
-          const { data: blockData, error, loading } = result
+          const { data: block, error, loading } = result
 
-          const parcel = blockData?.parcels.find(
-            p => !!(
-              parseInt(p.x) === x &&
-              parseInt(p.y) === y
-            )
-          )
+          const parcel = findParcel(block || { parcels: []}, x, y)
 
           if(parcel)
           {
