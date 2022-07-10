@@ -11,7 +11,7 @@ import useScreenDimensions from '../../hooks/use-screen-dimensions'
 import useMousewheelScalable from '../../hooks/use-mousewheel-scalable'
 import useControlledCoordinate from '../../hooks/use-controlled-coordinate'
 
-import ParcelGrid from '../ParcelGrid/ParcelGrid'
+import CanvasParcelGrid from '../CanvasParcelGrid/CanvasParcelGrid'
 
 import './App.css'
 
@@ -35,23 +35,19 @@ function App() {
 	const [selectedParcel, setSelectedParcel] = React.useState<Parcel|null>(null)
 
 	return (
-		<div
-			className={css({
-				color: `lightgray`,
-				backgroundColor: `white`,
-				width: `${screenDimensions.width}px`,
-				height: `${screenDimensions.height}px`,
-				overflow: `hidden`,
-			})}
-		>
-			<ParcelGrid
+		<main className={css({
+			color: `white`
+		})}>
+
+			<CanvasParcelGrid
+				size={screenDimensions}
 				parcelBounds={parcelBounds}
-				parcelCellSize={parcelCellSize}
-				screenDimensions={screenDimensions}
+				parcelSize={parcelCellSize}
 				selectedParcel={selectedParcel}
-				setSelectedParcel={setSelectedParcel}
-			></ParcelGrid>
-		</div>
+				setSelectedParcel={setSelectedParcel}>
+			</CanvasParcelGrid>
+
+		</main>
 	)
 }
 
