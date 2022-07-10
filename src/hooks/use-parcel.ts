@@ -1,3 +1,5 @@
+import { ApolloError } from '@apollo/client'
+
 import { Parcel } from '../types/parcel'
 import { Coordinate } from '../types/coordinate'
 
@@ -5,7 +7,13 @@ import { getBlockCoordinate } from '../utils/parcel'
 
 import useParcelBlock from './use-parcel-block'
 
-const useParcel = ({ x, y }: Coordinate) => {
+export type UseParcelHookResult = {
+	parcel?: Parcel;
+	isBlockDataLoading: boolean;
+	blockError?: ApolloError;
+}
+
+const useParcel = ({ x, y }: Coordinate): UseParcelHookResult => {
 
 	const blockCoordinate = getBlockCoordinate(x, y)
 
