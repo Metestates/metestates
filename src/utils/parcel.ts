@@ -12,7 +12,7 @@ function short(address: string) {
 	return `${address.slice(0, 5)}…${address.slice(address.length - 4)}`
 }
 
-function getGrayscaleFilterValue(
+function getParcelSaturation(
 	parcel: Parcel,
 	selectedParcel: Parcel|null): number
 {
@@ -21,10 +21,10 @@ function getGrayscaleFilterValue(
 		hasSameOwner(parcel, selectedParcel) === false
 	)
 	{
-		return 0.95
+		return 0.05
 	}
 
-	return 0
+	return 1.00
 }
 
 function getParcelColor(
@@ -85,7 +85,7 @@ function hasSameOwner(
 export {
 	address,
 	short,
-	getGrayscaleFilterValue,
+	getParcelSaturation,
 	getParcelColor,
 	hasSameOwner,
 }

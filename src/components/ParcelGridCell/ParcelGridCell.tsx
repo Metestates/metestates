@@ -9,7 +9,7 @@ import useParcel from '../../hooks/use-parcel'
 import {
 	address,
 	getParcelColor,
-	getGrayscaleFilterValue
+	getParcelSaturation
 } from '../../utils/parcel'
 
 interface IParcelGridCellItemData {
@@ -52,8 +52,9 @@ const ParcelGridCell = React.memo(({
 			data.selectedParcel,
 			addr)
 
-		const grayscaleFilterValue =
-			`${getGrayscaleFilterValue(parcel, data.selectedParcel)}`
+		const parcelSaturation = getParcelSaturation(parcel, data.selectedParcel)
+
+		const grayscaleFilterValue = `${1.0 - parcelSaturation}`
 
 		return (
 			<div
