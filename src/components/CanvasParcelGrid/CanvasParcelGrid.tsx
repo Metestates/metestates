@@ -73,11 +73,33 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
   size,
   parcelBounds: [origin],
   parcelSize,
-  selectedParcel,
-  setSelectedParcel
+  selectedParcel: _selectedParcel,
+  setSelectedParcel: _setSelectedParcel,
 }) => {
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
+
+  const originRef = React.useRef<Coordinate>(origin)
+  const parcelSizeRef = React.useRef<number>(parcelSize)
+
+  const selectedParcelRef = React.useRef<Parcel|null>(_selectedParcel)
+  const setSelectedParcelRef = React.useRef<(parcel: Parcel|null) => void>(_setSelectedParcel)
+
+  React.useEffect(() => {
+    originRef.current = origin
+  }, [origin])
+
+  React.useEffect(() => {
+    parcelSizeRef.current = parcelSize
+  }, [parcelSize])
+
+  React.useEffect(() => {
+    selectedParcelRef.current = _selectedParcel
+  }, [_selectedParcel])
+
+  React.useEffect(() => {
+    setSelectedParcelRef.current = _setSelectedParcel
+  }, [_setSelectedParcel])
 
   const [context, setContext] = React.useState<CanvasRenderingContext2D|null>(null)
 
@@ -104,18 +126,23 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     for(let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       for(let columnIndex = 0; columnIndex < columnCount; columnIndex++) {
 
-        let parcelRect: [number, number, number, number] = [
-          columnIndex * parcelSize,
-          rowIndex * parcelSize,
-          parcelSize,
-          parcelSize,
-        ]
+        let x = columnIndex + originRef.current.x
+        let y = originRef.current.y - rowIndex
 
-        let x = columnIndex + origin.x
-        let y = origin.y - rowIndex
+        let capturedOrigin = originRef.current
+        let capturedParcelSize = parcelSizeRef.current
 
         getParcelPromise(x, y, apolloClient, cache)
+
           .then(({ data: blockData, error, loading }: BlockDataResult) => {
+
+              if(JSON.stringify(capturedOrigin) !== JSON.stringify(originRef.current)) {
+                return;
+              }
+
+              if(capturedParcelSize !== parcelSizeRef.current) {
+                return;
+              }
 
               let parcel: Parcel|undefined;
 
@@ -142,7 +169,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
                 {
                   let [r, g, b, a] = getParcelColor(
                     parcel,
-                    selectedParcel,
+                    selectedParcelRef.current,
                     address(parcel)
                   )
 
@@ -150,7 +177,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
                   g = g / 256
                   b = b / 256
 
-                  let desaturation = 1.0 - getParcelSaturation(parcel, selectedParcel)
+                  let desaturation = 1.0 - getParcelSaturation(parcel, selectedParcelRef.current)
 
                   let luma = 0.3 * r + 0.6 * g + 0.1 * b;
 
@@ -165,6 +192,13 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
 
               }
 
+              let parcelRect: [number, number, number, number] = [
+                columnIndex * parcelSizeRef.current,
+                rowIndex * parcelSizeRef.current,
+                parcelSize,
+                parcelSize,
+              ]
+
               context.fillStyle = `rgba(${color.join(`,`)})`
 
               context.fillRect.apply(context, parcelRect)
@@ -177,10 +211,16 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
   }, [
     context,
     size,
-    parcelSize,
-    origin,
-    selectedParcel
+    parcelSizeRef.current,
+    originRef.current,
+    selectedParcelRef.current
   ])
+
+  const drawParcelsRef = React.useRef(drawParcels)
+
+  React.useEffect(() => {
+    drawParcelsRef.current = drawParcels
+  }, [drawParcels])
 
   const handleMouseMove = React.useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
 
@@ -190,41 +230,53 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     let atlasX = Math.floor(canvasX / parcelSize)
     let atlasY = Math.floor(canvasY / parcelSize)
 
-    let x = atlasX + origin.x
-    let y = origin.y - atlasY
+    let x = atlasX + originRef.current.x
+    let y = originRef.current.y - atlasY
 
-    const parcelPromise = getParcelPromise(x, y, apolloClient, cache)
+    let capturedOrigin = originRef.current
+    let capturedParcelSize = parcelSizeRef.current
 
-    parcelPromise
+    getParcelPromise(x, y, apolloClient, cache)
+
       .then((result: BlockDataResult) => {
 
-        const { data: blockData, error, loading } = result
+          if(JSON.stringify(capturedOrigin) !== JSON.stringify(originRef.current)) {
+            return;
+          }
 
-        const parcel = blockData?.parcels.find(
-          p => !!(
-            parseInt(p.x) === x &&
-            parseInt(p.y) === y
+          if(capturedParcelSize !== parcelSizeRef.current) {
+            return;
+          }
+
+          const { data: blockData, error, loading } = result
+
+          const parcel = blockData?.parcels.find(
+            p => !!(
+              parseInt(p.x) === x &&
+              parseInt(p.y) === y
+            )
           )
-        )
 
-        if(parcel)
-        {
-          setSelectedParcel(parcel)
-        }
-        else
-        {
-          setSelectedParcel(null)
-        }
+          if(parcel)
+          {
+            setSelectedParcelRef.current(parcel)
+          }
+          else
+          {
+            setSelectedParcelRef.current(null)
+          }
 
-        drawParcels()
+          window.setTimeout(() => {
+            drawParcelsRef.current()
+          })
 
-      })
+        })
 
   }, [
     canvasRef.current,
-    origin,
-    parcelSize,
-    setSelectedParcel,
+    originRef.current,
+    parcelSizeRef.current,
+    selectedParcelRef.current,
   ])
 
   React.useEffect(function setCanvasContext() {
@@ -264,8 +316,8 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     [
       context,
       size,
-      parcelSize,
-      origin,
+      parcelSizeRef.current,
+      originRef.current,
     ]
   )
 
