@@ -1,5 +1,7 @@
 # Metestates
 
+[![pages-build-deployment](https://github.com/Metestates/metestates/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/Metestates/metestates/actions/workflows/pages/pages-build-deployment)
+
 The new digital land-rush is upon us! Will you become the next land-baron?
 
 ![WIP](static/assets/readme/ipad-pro@2x.png)
