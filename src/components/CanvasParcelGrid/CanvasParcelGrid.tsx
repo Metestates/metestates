@@ -193,16 +193,12 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
 
               }
 
-              let parcelRect: [number, number, number, number] = [
-                columnIndex * parcelSizeRef.current,
-                rowIndex * parcelSizeRef.current,
-                parcelSize,
-                parcelSize,
-              ]
+              let size = parcelSizeRef.current
+              let pixelX = columnIndex * size
+              let pixelY = rowIndex * size
 
               context.fillStyle = `rgba(${color.join(`,`)})`
-
-              context.fillRect.apply(context, parcelRect)
+              context.fillRect(pixelX, pixelY, size, size)
 
             })
 
