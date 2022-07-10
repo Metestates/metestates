@@ -5,6 +5,8 @@ import { Coordinate } from '../types/coordinate'
 
 import { DAOContractAddress } from '../constants/DAOContractAddress'
 
+import { Block } from '../hooks/use-parcel-block'
+
 import AppConfig from '../config/app-config'
 
 function address(parcel: Parcel) {
@@ -23,6 +25,16 @@ function getBlockCoordinate(
 		x: parcelX - (parcelX % AppConfig.ParcelBlockWidth),
 		y: parcelY - (parcelY % AppConfig.ParcelBlockWidth),
 	}
+}
+
+function findParcel(
+	block: Block,
+	x: number,
+	y: number): Parcel|undefined
+{
+	return block?.parcels.find(
+		p => parseInt(p.x) === x && parseInt(p.y) === y
+	)
 }
 
 function getParcelSaturation(
@@ -102,4 +114,5 @@ export {
 	getParcelColor,
 	hasSameOwner,
 	getBlockCoordinate,
+	findParcel,
 }

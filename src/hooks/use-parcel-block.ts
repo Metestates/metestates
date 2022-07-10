@@ -13,8 +13,10 @@ import AppConfig from '../config/app-config'
 
 export type BlockDataQueryVariables = GET_PARCEL_BLOCKVariables
 
+export type Block = GET_PARCEL_BLOCK
+
 export type BlockDataResult = {
-	data?: GET_PARCEL_BLOCK,
+	data?: Block,
 	loading: boolean,
 	error?: ApolloError,
 }
