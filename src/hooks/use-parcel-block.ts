@@ -1,8 +1,5 @@
 import {
 	useQuery,
-	// DocumentNode,
-	// QueryResult,
-	// OperationVariables,
 	ApolloError,
 } from '@apollo/client'
 
@@ -14,16 +11,19 @@ import getBlockDataQuery from '../queries/getBlockData';
 
 import AppConfig from '../config/app-config'
 
-// interface GetSomeParcelsUseQueryResult
-//   extends QueryResult<GET_SOME_PARCELS, unknown> {}
-
-interface GetSomeParcelsUseQueryResult {
+export type BlockDataResult = {
 	data?: GET_PARCEL_BLOCK,
 	loading: boolean,
 	error?: ApolloError,
 }
 
-function useParcelBlock(blockCoords: Coordinate) {
+export type UseParcelBlockHookResult = {
+	blockData?: GET_PARCEL_BLOCK;
+	isBlockDataLoading: boolean;
+	blockError?: ApolloError;
+}
+
+const useParcelBlock = (blockCoords: Coordinate): UseParcelBlockHookResult => {
 
 	const variables: GET_PARCEL_BLOCKVariables = {
 		first: AppConfig.ParcelsPerQuery,
@@ -33,7 +33,7 @@ function useParcelBlock(blockCoords: Coordinate) {
 		yGt: blockCoords.y - Math.sqrt(AppConfig.ParcelsPerQuery),
 	}
 
-	const { data: blockData, loading: isBlockDataLoading, error: blockError }: GetSomeParcelsUseQueryResult =
+	const { data: blockData, loading: isBlockDataLoading, error: blockError }: BlockDataResult =
 		useQuery(getBlockDataQuery, {
 			errorPolicy: `all`,
 			variables,
