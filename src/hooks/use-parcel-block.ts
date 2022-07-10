@@ -11,6 +11,8 @@ import getBlockDataQuery from '../queries/getBlockData';
 
 import AppConfig from '../config/app-config'
 
+export type BlockDataQueryVariables = GET_PARCEL_BLOCKVariables
+
 export type BlockDataResult = {
 	data?: GET_PARCEL_BLOCK,
 	loading: boolean,
@@ -25,7 +27,7 @@ export type UseParcelBlockHookResult = {
 
 const useParcelBlock = (blockCoords: Coordinate): UseParcelBlockHookResult => {
 
-	const variables: GET_PARCEL_BLOCKVariables = {
+	const variables: BlockDataQueryVariables = {
 		first: AppConfig.ParcelsPerQuery,
 		xGte: blockCoords.x,
 		xLt: blockCoords.x + Math.sqrt(AppConfig.ParcelsPerQuery),
