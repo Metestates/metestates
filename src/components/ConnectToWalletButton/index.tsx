@@ -1,26 +1,30 @@
-// Importing modules
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+
 import { ethers } from 'ethers'
-import { WalletData } from '.'
+
+type WalletData = {
+	address: string,
+	Balance: string,
+}
 
 function ConnectToWalletButton() {
 	useEffect(() => {
-		if (window.ethereum) {
+		if ((window as any).ethereum) {
 			alert('ETHEREUM')
 		}
 		alert('PLEASE ATTACH METAMASK WALLET')
 	}, [])
 
 	// usetstate for storing and retrieving wallet details
-	const [data, setdata] = useState < WalletData > { address: '', Balance: '' }
+	const [data, setdata] = useState<WalletData>({ address: '', Balance: '' })
 
 	// Button handler button for handling a
 	// request event for metamask
 	const btnhandler = () => {
 		// Asking if metamask is already present or not
-		if (window.ethereum) {
+		if ((window as any).ethereum) {
 			// res[0] for fetching a first wallet
-			window.ethereum
+			(window as any).ethereum
 				.request({ method: 'eth_requestAccounts' })
 				.then((res: any) => accountChangeHandler(res[0]))
 		} else {
@@ -32,7 +36,7 @@ function ConnectToWalletButton() {
 	// a right format with help of ethers
 	const getbalance = (address: any) => {
 		// Requesting balance method
-		window.ethereum
+		(window as any).ethereum
 			.request({
 				method: 'eth_getBalance',
 				params: [address, 'latest'],
