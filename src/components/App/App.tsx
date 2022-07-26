@@ -17,7 +17,7 @@ import './App.css'
 function App() {
 	const screenDimensions = useScreenDimensions()
 	const parcelCellSize = useMousewheelScalable(AppConfig.ParcelPixelWidth, {
-		delta: 4,
+		delta: 1,
 		minValue: AppConfig.ParcelPixelMinWidth,
 		maxValue: AppConfig.ParcelPixelMaxWidth,
 	})
