@@ -32,9 +32,9 @@ const useParcelBlock = (blockCoords: Coordinate): UseParcelBlockHookResult => {
 	const variables: BlockDataQueryVariables = {
 		first: AppConfig.ParcelsPerQuery,
 		xGte: blockCoords.x,
-		xLt: blockCoords.x + Math.sqrt(AppConfig.ParcelsPerQuery),
+		xLt: blockCoords.x + AppConfig.ParcelBlockWidth,
 		yLte: blockCoords.y,
-		yGt: blockCoords.y - Math.sqrt(AppConfig.ParcelsPerQuery),
+		yGt: blockCoords.y - AppConfig.ParcelBlockWidth,
 	}
 
 	const { data: blockData, loading: isBlockDataLoading, error: blockError }: BlockDataResult =
