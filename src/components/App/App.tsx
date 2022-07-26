@@ -3,7 +3,6 @@ import React from 'react'
 import { css } from '@emotion/css'
 
 import { Parcel } from '../../types/parcel'
-import { Coordinate } from '../../types/coordinate'
 
 import AppConfig from '../../config/app-config'
 
@@ -24,14 +23,6 @@ function App() {
 	})
 	const origin = useControlledCoordinate(AppConfig.Origin)
 
-	const parcelBounds: Coordinate[] = [
-		origin,
-		{
-			x: origin.x + Math.sqrt(AppConfig.ParcelsPerQuery),
-			y: origin.y - Math.sqrt(AppConfig.ParcelsPerQuery),
-		},
-	]
-
 	const [selectedParcel, setSelectedParcel] = React.useState<Parcel|null>(null)
 
 	return (
@@ -41,7 +32,7 @@ function App() {
 
 			<CanvasParcelGrid
 				size={screenDimensions}
-				parcelBounds={parcelBounds}
+				origin={origin}
 				parcelSize={parcelCellSize}
 				selectedParcel={selectedParcel}
 				setSelectedParcel={setSelectedParcel}>

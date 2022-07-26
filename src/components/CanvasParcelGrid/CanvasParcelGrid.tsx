@@ -69,7 +69,7 @@ const getBlockPromise = (
 
 type CanvasParcelGridProps = React.PropsWithChildren<{
   size: Dimensions;
-  parcelBounds: Coordinate[];
+  origin: Coordinate;
   parcelSize: number;
   selectedParcel: Parcel|null;
   setSelectedParcel: (value: Parcel|null) => void;
@@ -77,7 +77,7 @@ type CanvasParcelGridProps = React.PropsWithChildren<{
 
 const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
   size,
-  parcelBounds: [origin],
+  origin,
   parcelSize,
   selectedParcel: _selectedParcel,
   setSelectedParcel: _setSelectedParcel,
