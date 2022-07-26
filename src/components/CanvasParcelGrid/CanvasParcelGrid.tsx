@@ -27,7 +27,7 @@ type BlockDataResultPromiseCache = {
   [key: string]: Promise<BlockDataResult>
 }
 
-const getParcelPromise = (
+const getBlockPromise = (
   x: number,
   y: number,
   apolloClient: ApolloClient<object>,
@@ -138,7 +138,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
         let capturedOrigin = originRef.current
         let capturedParcelSize = parcelSizeRef.current
 
-        getParcelPromise(x, y, apolloClient, cache)
+        getBlockPromise(x, y, apolloClient, cache)
 
           .then(({ data: block, error, loading }: BlockDataResult) => {
 
@@ -233,7 +233,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     let capturedOrigin = originRef.current
     let capturedParcelSize = parcelSizeRef.current
 
-    getParcelPromise(x, y, apolloClient, cache)
+    getBlockPromise(x, y, apolloClient, cache)
 
       .then((result: BlockDataResult) => {
 
