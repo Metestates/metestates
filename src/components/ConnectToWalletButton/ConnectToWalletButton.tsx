@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import {
 	useEthers,
@@ -7,9 +7,14 @@ import {
 
 import TokenBalance from '../TokenBalance/TokenBalance'
 
-const ConnectToWalletButton = () => {
+type ConnectToWalletButtonProps = {}
 
-	const { account: address, activateBrowserWallet } = useEthers()
+const ConnectToWalletButton: FC<ConnectToWalletButtonProps> = () => {
+
+	const {
+		account: address,
+		activateBrowserWallet,
+	} = useEthers()
 
 	const { notifications } = useNotifications()
 
