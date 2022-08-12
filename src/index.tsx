@@ -1,8 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './components/App/App'
-import reportWebVitals from './reportWebVitals'
 
 import localForage from 'localforage'
 
@@ -17,7 +14,20 @@ import {
 	ApolloProvider,
 } from '@apollo/client'
 
-async function getClient() {
+import {
+	ChainId,
+	Config,
+	DAppProvider,
+} from '@usedapp/core'
+
+import './index.css'
+
+import reportWebVitals from './reportWebVitals'
+
+import App from './components/App/App'
+
+async function getApolloClient() {
+
 	const cache = new InMemoryCache({
 		typePolicies: {
 			Parcel: {
@@ -51,14 +61,23 @@ async function getClient() {
 
 async function init() {
 
-	const client = await getClient()
+	const client = await getApolloClient()
+
+	const dappProviderConfig: Config = {
+		readOnlyChainId: ChainId.Mainnet,
+		readOnlyUrls: {
+			[ChainId.Mainnet]: 'https://mainnet.infura.io/v3/84842078b09946638c03157f83405213',
+		},
+	}
 
 	ReactDOM.render(
 
 		(
 			<React.StrictMode>
 				<ApolloProvider client={client}>
-					<App />
+					<DAppProvider config={dappProviderConfig}>
+						<App />
+					</DAppProvider>
 				</ApolloProvider>
 			</React.StrictMode>
 		),

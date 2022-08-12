@@ -1,9 +1,6 @@
 import React from 'react'
 
 import {
-	ChainId,
-	Config,
-	DAppProvider,
 	useEthers,
 	useNotifications,
 } from '@usedapp/core'
@@ -16,13 +13,6 @@ import useTokenBalance from '../../hooks/use-token-balance'
 
 // See: https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942
 const ManaErc20TokenAddress = `0x0f5d2fb29fb7d3cfee444a200298f468908cc942`
-
-const config: Config = {
-	readOnlyChainId: ChainId.Mainnet,
-	readOnlyUrls: {
-		[ChainId.Mainnet]: 'https://mainnet.infura.io/v3/84842078b09946638c03157f83405213',
-	},
-}
 
 const TokenBalance = () => {
 
@@ -116,9 +106,7 @@ const TokenBalance = () => {
 }
 
 const ConnectToWalletButton = () => (
-	<DAppProvider config={config}>
-		<TokenBalance />
-	</DAppProvider>
+	<TokenBalance />
 )
 
 export default ConnectToWalletButton
