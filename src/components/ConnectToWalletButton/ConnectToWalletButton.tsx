@@ -4,18 +4,15 @@ import {
 	ChainId,
 	Config,
 	DAppProvider,
-	ERC20Interface,
-	useCall,
 	useEthers,
 	useNotifications,
 } from '@usedapp/core'
 
-import { BigNumber } from '@ethersproject/bignumber'
-import { Contract } from '@ethersproject/contracts'
-
 import { formatUnits } from '@ethersproject/units'
 
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+
+import useTokenBalance from '../../hooks/use-token-balance'
 
 // See: https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942
 const ManaErc20TokenAddress = `0x0f5d2fb29fb7d3cfee444a200298f468908cc942`
@@ -25,50 +22,6 @@ const config: Config = {
 	readOnlyUrls: {
 		[ChainId.Mainnet]: 'https://mainnet.infura.io/v3/84842078b09946638c03157f83405213',
 	},
-}
-
-type UseTokenBalanceHookResult = [
-	BigNumber|undefined,
-	Error|undefined,
-	boolean,
-]
-
-const useTokenBalance = (
-	tokenAddress: string,
-	address?: string): UseTokenBalanceHookResult =>
-{
-
-	let result;
-
-	result = useCall(
-		address &&
-		{
-			contract: new Contract(tokenAddress, ERC20Interface),
-			method: 'balanceOf',
-			args: [address],
-		}
-	)
-
-	if(!address)
-	{
-		return [undefined, undefined, true]
-	}
-
-	if(!result)
-	{
-		return [undefined, undefined, false]
-	}
-
-	let { value, error } = result
-
-	if(error) {
-		return [undefined, error, false]
-	}
-
-	const { balance } = value
-
-	return [balance, undefined, false]
-
 }
 
 const TokenBalance = () => {
