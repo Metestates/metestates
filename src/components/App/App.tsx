@@ -2,6 +2,8 @@ import React from 'react'
 
 import { css } from '@emotion/css'
 
+import { useEthers } from '@usedapp/core'
+
 import { Parcel } from '../../types/parcel'
 
 import AppConfig from '../../config/app-config'
@@ -10,21 +12,28 @@ import useScreenDimensions from '../../hooks/use-screen-dimensions'
 import useMousewheelScalable from '../../hooks/use-mousewheel-scalable'
 import useControlledCoordinate from '../../hooks/use-controlled-coordinate'
 
+import TokenBalance from '../TokenBalance/TokenBalance'
 import ConnectToWalletButton from '../ConnectToWalletButton/ConnectToWalletButton'
+
 import CanvasParcelGrid from '../CanvasParcelGrid/CanvasParcelGrid'
 
 import './App.css'
 
 function App() {
+
 	const screenDimensions = useScreenDimensions()
+
 	const parcelCellSize = useMousewheelScalable(AppConfig.ParcelPixelWidth, {
 		delta: 1,
 		minValue: AppConfig.ParcelPixelMinWidth,
 		maxValue: AppConfig.ParcelPixelMaxWidth,
 	})
+
 	const origin = useControlledCoordinate(AppConfig.Origin)
 
 	const [selectedParcel, setSelectedParcel] = React.useState<Parcel|null>(null)
+
+	const { account: address } = useEthers()
 
 	return (
 		<div>
@@ -40,7 +49,17 @@ function App() {
 					padding: '1em',
 				}}
 				>
-				<ConnectToWalletButton />
+
+				{
+					!address &&
+					<ConnectToWalletButton />
+				}
+
+				{
+					address &&
+					<TokenBalance address={address} />
+				}
+
 			</header>
 
 			<main className={css({

@@ -5,16 +5,11 @@ import {
 	useNotifications,
 } from '@usedapp/core'
 
-import TokenBalance from '../TokenBalance/TokenBalance'
-
 type ConnectToWalletButtonProps = {}
 
 const ConnectToWalletButton: FC<ConnectToWalletButtonProps> = () => {
 
-	const {
-		account: address,
-		activateBrowserWallet,
-	} = useEthers()
+	const { activateBrowserWallet } = useEthers()
 
 	const { notifications } = useNotifications()
 
@@ -54,21 +49,9 @@ const ConnectToWalletButton: FC<ConnectToWalletButtonProps> = () => {
 	)
 
 	return (
-		<div>
-
-			{
-				!address &&
-				<button onClick={e => connectWallet()}>
-					Connect Wallet
-				</button>
-			}
-
-			{
-				address &&
-				<TokenBalance address={address} />
-			}
-
-		</div>
+		<button onClick={e => connectWallet()}>
+			Connect Wallet
+		</button>
 	)
 
 }
