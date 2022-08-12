@@ -12,6 +12,7 @@ import {
 	ApolloClient,
 	InMemoryCache,
 	ApolloProvider,
+	NormalizedCacheObject,
 } from '@apollo/client'
 
 import {
@@ -26,7 +27,7 @@ import reportWebVitals from './reportWebVitals'
 
 import App from './components/App/App'
 
-async function getApolloClient() {
+const getApolloClient = async (): Promise<ApolloClient<NormalizedCacheObject>> => {
 
 	const cache = new InMemoryCache({
 		typePolicies: {
@@ -57,6 +58,7 @@ async function getApolloClient() {
 	})
 
 	return client
+
 }
 
 async function init() {
