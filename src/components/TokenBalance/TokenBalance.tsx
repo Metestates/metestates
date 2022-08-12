@@ -19,17 +19,13 @@ type TokenBalanceProps = {
 
 const TokenBalance: FC<TokenBalanceProps> = ({ address }) => {
 
-	const [
-		tokenBalance,
-		tokenBalanceError,
-		tokenBalanceLoading,
-	] = useTokenBalance(ManaErc20TokenAddress, address)
+	const [balance, error, isLoading] = useTokenBalance(ManaErc20TokenAddress, address)
 
 	if(
-		tokenBalanceLoading ||
+		isLoading ||
 		(
-			!tokenBalance &&
-			!tokenBalanceError
+			!balance &&
+			!error
 		)
 	) {
 		return (
@@ -39,15 +35,15 @@ const TokenBalance: FC<TokenBalanceProps> = ({ address }) => {
 		)
 	}
 
-	if(tokenBalanceError) {
+	if(error) {
 		return (
 			<div>
-				<p>Error retreiving token balance: {tokenBalanceError}</p>
+				<p>Error retreiving token balance: {error}</p>
 			</div>
 		)
 	}
 
-	let formattedTokenBalance = formatUnits(tokenBalance!, ManaErc20TokenDigits)
+	let formattedTokenBalance = formatUnits(balance!, ManaErc20TokenDigits)
 
 	return (
 		<div>
@@ -59,7 +55,7 @@ const TokenBalance: FC<TokenBalanceProps> = ({ address }) => {
 				</>
 			}
 			{
-				tokenBalance &&
+				balance &&
 				<p>Balance: {formattedTokenBalance} MANA</p>
 			}
 		</div>
