@@ -1,83 +1,171 @@
-import { useState, useEffect } from 'react'
+import React from 'react'
 
-import { ethers } from 'ethers'
+import {
+	ChainId,
+	Config,
+	DAppProvider,
+	ERC20Interface,
+	useCall,
+	useEthers,
+	useNotifications,
+} from '@usedapp/core'
 
-type WalletData = {
-	address: string,
-	Balance: string,
+import { BigNumber } from '@ethersproject/bignumber'
+import { Contract } from '@ethersproject/contracts'
+
+import { formatUnits } from '@ethersproject/units'
+
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+
+// See: https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942
+const ManaErc20TokenAddress = `0x0f5d2fb29fb7d3cfee444a200298f468908cc942`
+
+const config: Config = {
+	readOnlyChainId: ChainId.Mainnet,
+	readOnlyUrls: {
+		[ChainId.Mainnet]: 'https://mainnet.infura.io/v3/84842078b09946638c03157f83405213',
+	},
 }
 
-function ConnectToWalletButton() {
-	useEffect(() => {
-		if ((window as any).ethereum) {
-			alert('ETHEREUM')
+type UseTokenBalanceHookResult = [
+	BigNumber|undefined,
+	Error|undefined,
+	boolean,
+]
+
+const useTokenBalance = (
+	tokenAddress: string,
+	address?: string): UseTokenBalanceHookResult =>
+{
+
+	let result;
+
+	result = useCall(
+		address &&
+		{
+			contract: new Contract(tokenAddress, ERC20Interface),
+			method: 'balanceOf',
+			args: [address],
 		}
-		alert('PLEASE ATTACH METAMASK WALLET')
-	}, [])
+	)
 
-	// usetstate for storing and retrieving wallet details
-	const [data, setdata] = useState<WalletData>({ address: '', Balance: '' })
-
-	// Button handler button for handling a
-	// request event for metamask
-	const btnhandler = () => {
-		// Asking if metamask is already present or not
-		if ((window as any).ethereum) {
-			// res[0] for fetching a first wallet
-			(window as any).ethereum
-				.request({ method: 'eth_requestAccounts' })
-				.then((res: any) => accountChangeHandler(res[0]))
-		} else {
-			alert('install metamask extension!!')
-		}
+	if(!address)
+	{
+		return [undefined, undefined, true]
 	}
 
-	// getbalance function for getting a balance in
-	// a right format with help of ethers
-	const getbalance = (address: any) => {
-		// Requesting balance method
-		(window as any).ethereum
-			.request({
-				method: 'eth_getBalance',
-				params: [address, 'latest'],
+	if(!result)
+	{
+		return [undefined, undefined, false]
+	}
+
+	let { value, error } = result
+
+	if(error) {
+		return [undefined, error, false]
+	}
+
+	const { balance } = value
+
+	return [balance, undefined, false]
+
+}
+
+const TokenBalance = () => {
+
+	const [connectedAddress, setConnectedAddress] = React.useState<string|undefined>()
+
+	const { activateBrowserWallet, error } = useEthers()
+
+	const { notifications } = useNotifications()
+
+	React.useEffect(
+		() => {
+			(activateBrowserWallet() as any).then(() => {
+				console.log(`Connected to a new browser wallet…`)
 			})
-			.then((balance: number) => {
-				// Setting balance
-				setdata({
-					address: address,
-					Balance: ethers.utils.formatEther(balance),
-				})
+		},
+		[]
+	)
+
+	React.useEffect(
+		() => {
+			notifications.map(n => {
+				switch(n.type) {
+					case `walletConnected`:
+
+						let addr = n.address
+
+						console.log(`Connected to wallet with address ${addr}.`)
+
+						setConnectedAddress(addr)
+
+						break;
+
+					default:
+
+						console.log(n)
+
+						break;
+				}
+
 			})
+		},
+		[notifications]
+	)
+
+	const [
+		tokenBalance,
+		tokenBalanceError,
+		tokenBalanceLoading,
+	] = useTokenBalance(ManaErc20TokenAddress, connectedAddress)
+
+	if(
+		tokenBalanceLoading ||
+		(
+			!tokenBalance &&
+			!tokenBalanceError
+		)
+	) {
+		return (
+			<div>
+				<p>Loading…</p>
+			</div>
+		)
 	}
 
-	// Function for getting handling all events
-	const accountChangeHandler = (account: string) => {
-		// Setting an address data
-		setdata({
-			address: account,
-			Balance: '',
-		})
-
-		// Setting a balance
-		getbalance(account)
+	if(tokenBalanceError) {
+		return (
+			<div>
+				<p>Error retreiving token balance: {tokenBalanceError}</p>
+			</div>
+		)
 	}
+
+	let formattedTokenBalance = formatUnits(tokenBalance!, 18)
 
 	return (
 		<div>
-			{/* Calling all values which we have stored in usestate */}
-			<div>
-				<strong>Address: </strong>
-				{data.address}
-			</div>
-			<div>
-				<div>
-					<strong>Balance: </strong>
-					{data.Balance}
-				</div>
-				<button onClick={btnhandler}>Connect wallet</button>
-			</div>
+			{
+				connectedAddress &&
+				<>
+					<p>Address: {connectedAddress}</p>
+					<Jazzicon diameter={48} seed={jsNumberForAddress(connectedAddress)} />
+				</>
+			}
+			{
+				tokenBalance &&
+				<p>Balance: {formattedTokenBalance} MANA</p>
+			}
 		</div>
 	)
+
 }
+
+const ConnectToWalletButton = () => (
+	<DAppProvider config={config}>
+		<TokenBalance />
+	</DAppProvider>
+)
 
 export default ConnectToWalletButton

@@ -10,6 +10,7 @@ import useScreenDimensions from '../../hooks/use-screen-dimensions'
 import useMousewheelScalable from '../../hooks/use-mousewheel-scalable'
 import useControlledCoordinate from '../../hooks/use-controlled-coordinate'
 
+import ConnectToWalletButton from '../ConnectToWalletButton/ConnectToWalletButton'
 import CanvasParcelGrid from '../CanvasParcelGrid/CanvasParcelGrid'
 
 import './App.css'
@@ -26,19 +27,37 @@ function App() {
 	const [selectedParcel, setSelectedParcel] = React.useState<Parcel|null>(null)
 
 	return (
-		<main className={css({
-			color: `white`
-		})}>
+		<div>
 
-			<CanvasParcelGrid
-				size={screenDimensions}
-				origin={origin}
-				parcelSize={parcelCellSize}
-				selectedParcel={selectedParcel}
-				setSelectedParcel={setSelectedParcel}>
-			</CanvasParcelGrid>
+			<header
+				style={{
+					position: 'sticky',
+					top: 0,
+					zIndex: 999,
+					minHeight: 64,
+					backgroundColor: 'rgba(0,0,0,0.75)',
+					color: 'white',
+					padding: '1em',
+				}}
+				>
+				<ConnectToWalletButton />
+			</header>
 
-		</main>
+			<main className={css({
+				color: `white`
+			})}>
+
+				<CanvasParcelGrid
+					size={screenDimensions}
+					origin={origin}
+					parcelSize={parcelCellSize}
+					selectedParcel={selectedParcel}
+					setSelectedParcel={setSelectedParcel}>
+				</CanvasParcelGrid>
+
+			</main>
+
+		</div>
 	)
 }
 
