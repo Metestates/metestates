@@ -15,48 +15,11 @@ import useTokenBalance from '../../hooks/use-token-balance'
 const ManaErc20TokenAddress = `0x0f5d2fb29fb7d3cfee444a200298f468908cc942`
 const ManaErc20TokenDigits = 18
 
-const TokenBalance = () => {
+type TokenBalanceProps = {
+	address: string,
+}
 
-	const {
-		account: address,
-		activateBrowserWallet,
-		error,
-	} = useEthers()
-
-	const { notifications } = useNotifications()
-
-	React.useEffect(
-		() => {
-			(activateBrowserWallet() as any).then(() => {
-				console.log(`Connected to a new browser wallet…`)
-			})
-		},
-		[]
-	)
-
-	React.useEffect(
-		() => {
-			notifications.map(n => {
-				switch(n.type) {
-					case `walletConnected`:
-
-						let addr = n.address
-
-						console.log(`Connected to wallet with address ${addr}.`)
-
-						break;
-
-					default:
-
-						console.log(n)
-
-						break;
-				}
-
-			})
-		},
-		[notifications]
-	)
+const TokenBalance: React.FC<TokenBalanceProps> = ({ address }) => {
 
 	const [
 		tokenBalance,
@@ -106,8 +69,65 @@ const TokenBalance = () => {
 
 }
 
-const ConnectToWalletButton = () => (
-	<TokenBalance />
-)
+const ConnectToWalletButton = () => {
+
+	const { account: address, activateBrowserWallet } = useEthers()
+
+	const { notifications } = useNotifications()
+
+	const connectWallet = React.useCallback(
+		() => {
+
+			(activateBrowserWallet() as any).then(() => {
+				console.log(`Connected to a new browser wallet…`)
+			})
+
+		},
+		[activateBrowserWallet]
+	)
+
+	React.useEffect(
+		() => {
+			notifications.map(n => {
+				switch(n.type) {
+					case `walletConnected`:
+
+						let addr = n.address
+
+						console.log(`Connected to wallet with address ${addr}.`)
+
+						break;
+
+					default:
+
+						console.log(n)
+
+						break;
+				}
+
+			})
+		},
+		[notifications]
+	)
+
+	return (
+		<div>
+
+			{
+				!address &&
+				<button onClick={e => connectWallet()}>
+					Connect Wallet
+				</button>
+			}
+
+			{
+				address &&
+				<TokenBalance address={address} />
+			}
+
+		</div>
+	)
+
+}
 
 export default ConnectToWalletButton
