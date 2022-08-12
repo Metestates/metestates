@@ -16,9 +16,11 @@ const ManaErc20TokenAddress = `0x0f5d2fb29fb7d3cfee444a200298f468908cc942`
 
 const TokenBalance = () => {
 
-	const [connectedAddress, setConnectedAddress] = React.useState<string|undefined>()
-
-	const { activateBrowserWallet, error } = useEthers()
+	const {
+		account: address,
+		activateBrowserWallet,
+		error,
+	} = useEthers()
 
 	const { notifications } = useNotifications()
 
@@ -41,8 +43,6 @@ const TokenBalance = () => {
 
 						console.log(`Connected to wallet with address ${addr}.`)
 
-						setConnectedAddress(addr)
-
 						break;
 
 					default:
@@ -61,7 +61,7 @@ const TokenBalance = () => {
 		tokenBalance,
 		tokenBalanceError,
 		tokenBalanceLoading,
-	] = useTokenBalance(ManaErc20TokenAddress, connectedAddress)
+	] = useTokenBalance(ManaErc20TokenAddress, address)
 
 	if(
 		tokenBalanceLoading ||
@@ -90,10 +90,10 @@ const TokenBalance = () => {
 	return (
 		<div>
 			{
-				connectedAddress &&
+				address &&
 				<>
-					<p>Address: {connectedAddress}</p>
-					<Jazzicon diameter={48} seed={jsNumberForAddress(connectedAddress)} />
+					<p>Address: {address}</p>
+					<Jazzicon diameter={48} seed={jsNumberForAddress(address)} />
 				</>
 			}
 			{
