@@ -13,6 +13,7 @@ import useTokenBalance from '../../hooks/use-token-balance'
 
 // See: https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942
 const ManaErc20TokenAddress = `0x0f5d2fb29fb7d3cfee444a200298f468908cc942`
+const ManaErc20TokenDigits = 18
 
 const TokenBalance = () => {
 
@@ -85,7 +86,7 @@ const TokenBalance = () => {
 		)
 	}
 
-	let formattedTokenBalance = formatUnits(tokenBalance!, 18)
+	let formattedTokenBalance = formatUnits(tokenBalance!, ManaErc20TokenDigits)
 
 	return (
 		<div>
