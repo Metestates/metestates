@@ -10,6 +10,8 @@ import ITokenMetadata from '../../types/token';
 
 import useTokenBalance from '../../hooks/use-token-balance'
 
+import { shortenAddress } from '../../utils/address';
+
 type TokenBalanceProps = {
 	token: ITokenMetadata,
 	address: string,
@@ -45,17 +47,16 @@ const TokenBalance: FC<TokenBalanceProps> = ({ token, address }) => {
 
 	return (
 		<div>
-			{
-				address &&
-				<>
-					<p>Address: {address}</p>
-					<Jazzicon diameter={48} seed={jsNumberForAddress(address)} />
-				</>
-			}
+
+			<p>{shortenAddress(address)}</p>
+
+			<Jazzicon diameter={48} seed={jsNumberForAddress(address)} />
+
 			{
 				balance &&
 				<p>{formattedTokenBalance} {token.symbol}</p>
 			}
+
 		</div>
 	)
 
