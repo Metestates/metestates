@@ -1,4 +1,6 @@
-export type Dimensions = {
+type Dimensions = {
 	width: number;
 	height: number;
 }
+
+export default Dimensions

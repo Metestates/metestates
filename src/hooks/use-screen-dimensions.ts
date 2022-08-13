@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Dimensions } from '../types/dimensions'
+import Dimensions from '../types/dimensions'
 
 type UseScreenDimensionsHookResult = Dimensions
 

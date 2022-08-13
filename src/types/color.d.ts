@@ -1,1 +1,3 @@
-export type Color = [number, number, number, number]
+type Color = [number, number, number, number]
+
+export default Color

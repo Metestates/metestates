@@ -1,4 +1,4 @@
-import { Coordinate } from '../types/coordinate'
+import Coordinate from '../types/coordinate'
 
 export interface IAppConfig {
 	ParcelPixelWidth: number;

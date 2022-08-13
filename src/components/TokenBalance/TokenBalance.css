@@ -1,0 +1,27 @@
+.TokenBalance {
+	display: inline-block;
+	font-size: 14px;
+}
+
+.TokenBalance .wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1em;
+}
+
+.TokenBalance .left,
+.TokenBalance .right {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.TokenBalance .right span {
+	line-height: 1.2;
+}
+
+.TokenBalance .paper {
+	border: 2px solid #1098fc;
+}
