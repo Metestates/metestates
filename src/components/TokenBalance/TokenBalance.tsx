@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
 
-import './TokenBalance.css';
-
 import { formatUnits } from '@ethersproject/units'
 
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
@@ -12,7 +10,7 @@ import useTokenBalance from '../../hooks/use-token-balance'
 
 import { shortenAddress } from '../../utils/address';
 
-import './TokenBalance.css'
+import styles from './TokenBalance.module.scss'
 
 type TokenBalanceProps = {
 	token: ITokenMetadata,
@@ -48,16 +46,16 @@ const TokenBalance: FC<TokenBalanceProps> = ({ token, address }) => {
 	let formattedTokenBalance = formatUnits(balance!, token.decimals)
 
 	return (
-		<div className='TokenBalance'>
-			<div className="wrapper">
-				<div className='left'>
+		<div className={styles.TokenBalance}>
+			<div className={styles.TokenBalanceWrapper}>
+				<div className={styles.TokenBalanceLeft}>
 					<Jazzicon diameter={40} seed={jsNumberForAddress(address)} />
 				</div>
-				<div className='right'>
-					<span>{shortenAddress(address)}</span>
+				<div className={styles.TokenBalanceRight}>
+					<span className={styles.TokenBalanceSpan}>{shortenAddress(address)}</span>
 					{
 						balance &&
-						<span>{formattedTokenBalance} {token.symbol}</span>
+						<span className={styles.TokenBalanceSpan}>{formattedTokenBalance} {token.symbol}</span>
 					}
 				</div>
 			</div>

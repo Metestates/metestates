@@ -10,14 +10,14 @@
 			},
 			"problemMatcher": [],
 			"label": "npm: test",
-			"detail": "react-scripts test"
+			"detail": "echo \"Error: no test specified\" && exit 1"
 		},
 		{
 			"type": "npm",
-			"script": "start",
+			"script": "dev",
 			"problemMatcher": [],
-			"label": "npm: start",
-			"detail": "react-scripts start",
+			"label": "npm: dev",
+			"detail": "next dev",
 			"group": {
 				"kind": "build",
 				"isDefault": true
