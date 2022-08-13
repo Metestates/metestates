@@ -5,6 +5,8 @@ import {
 	useNotifications,
 } from '@usedapp/core'
 
+import './ConnectToWalletButton.css'
+
 type ConnectToWalletButtonProps = {}
 
 const ConnectToWalletButton: FC<ConnectToWalletButtonProps> = () => {
@@ -49,7 +51,8 @@ const ConnectToWalletButton: FC<ConnectToWalletButtonProps> = () => {
 	)
 
 	return (
-		<button onClick={e => connectWallet()}>
+		<button className='ConnectToWalletButton'
+			onClick={e => connectWallet()}>
 			Connect Wallet
 		</button>
 	)

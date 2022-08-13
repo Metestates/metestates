@@ -46,35 +46,20 @@ function App() {
 	}
 
 	return (
-		<div>
+		<div className='App'>
 
-			<header
-				style={{
-					position: 'sticky',
-					top: 0,
-					zIndex: 999,
-					minHeight: 64,
-					backgroundColor: 'rgba(0,0,0,0.75)',
-					color: 'white',
-					padding: '1em',
-				}}
-				>
-
+			<header>
 				{
 					!address &&
 					<ConnectToWalletButton />
 				}
-
 				{
 					address &&
 					<TokenBalance token={MANA} address={address} />
 				}
-
 			</header>
 
-			<main className={css({
-				color: `white`
-			})}>
+			<main>
 
 				<CanvasParcelGrid
 					size={screenDimensions}
