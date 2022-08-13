@@ -49,7 +49,9 @@ const TokenBalance: FC<TokenBalanceProps> = ({ token, address }) => {
 		<div className={styles.TokenBalance}>
 			<div className={styles.TokenBalanceWrapper}>
 				<div className={styles.TokenBalanceLeft}>
-					<Jazzicon diameter={40} seed={jsNumberForAddress(address)} />
+					<div className={styles.TokenBalanceJazziconWrapper}>
+						<Jazzicon diameter={40} seed={jsNumberForAddress(address)} />
+					</div>
 				</div>
 				<div className={styles.TokenBalanceRight}>
 					<span className={styles.TokenBalanceSpan}>{shortenAddress(address)}</span>
