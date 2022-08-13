@@ -1146,7 +1146,7 @@
     "exec-sh" "^0.3.2"
     "minimist" "^1.2.0"
 
-"@craco/craco@^6.4.2":
+"@craco/craco@^6.4.5":
   "integrity" "sha512-8F2rIAao8sEh0FPP52ViEvDM9GjJ7acq0knu1c8UgI+EuZMD5/ZB270ol6jV4iNY7it9Umg/RoGBvNRUNr8U8w=="
   "resolved" "https://registry.npmjs.org/@craco/craco/-/craco-6.4.5.tgz"
   "version" "6.4.5"
