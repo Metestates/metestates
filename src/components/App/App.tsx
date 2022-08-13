@@ -5,6 +5,7 @@ import { css } from '@emotion/css'
 import { useEthers } from '@usedapp/core'
 
 import { Parcel } from '../../types/parcel'
+import ITokenMetadata from '../../types/token'
 
 import AppConfig from '../../config/app-config'
 
@@ -35,6 +36,15 @@ function App() {
 
 	const { account: address } = useEthers()
 
+	// See: https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942
+
+	const MANA: ITokenMetadata = {
+		name: 'Decentraland',
+		symbol: 'MANA',
+		address: '0x0f5d2fb29fb7d3cfee444a200298f468908cc942',
+		decimals: 18,
+	}
+
 	return (
 		<div>
 
@@ -57,7 +67,7 @@ function App() {
 
 				{
 					address &&
-					<TokenBalance address={address} />
+					<TokenBalance token={MANA} address={address} />
 				}
 
 			</header>

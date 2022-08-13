@@ -6,20 +6,18 @@ import { formatUnits } from '@ethersproject/units'
 
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
+import ITokenMetadata from '../../types/token';
+
 import useTokenBalance from '../../hooks/use-token-balance'
 
-// See: https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942
-const ManaErc20TokenAddress = `0x0f5d2fb29fb7d3cfee444a200298f468908cc942`
-const ManaErc20TokenDigits = 18
-
-
 type TokenBalanceProps = {
+	token: ITokenMetadata,
 	address: string,
 }
 
-const TokenBalance: FC<TokenBalanceProps> = ({ address }) => {
+const TokenBalance: FC<TokenBalanceProps> = ({ token, address }) => {
 
-	const [balance, error, isLoading] = useTokenBalance(ManaErc20TokenAddress, address)
+	const [balance, error, isLoading] = useTokenBalance(token.address, address)
 
 	if(
 		isLoading ||
@@ -43,7 +41,7 @@ const TokenBalance: FC<TokenBalanceProps> = ({ address }) => {
 		)
 	}
 
-	let formattedTokenBalance = formatUnits(balance!, ManaErc20TokenDigits)
+	let formattedTokenBalance = formatUnits(balance!, token.decimals)
 
 	return (
 		<div>
@@ -56,7 +54,7 @@ const TokenBalance: FC<TokenBalanceProps> = ({ address }) => {
 			}
 			{
 				balance &&
-				<p>Balance: {formattedTokenBalance} MANA</p>
+				<p>{formattedTokenBalance} {token.symbol}</p>
 			}
 		</div>
 	)
