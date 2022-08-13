@@ -5,6 +5,8 @@ import {
 	useNotifications,
 } from '@usedapp/core'
 
+import { Button } from '@chakra-ui/react'
+
 import styles from './ConnectToWalletButton.module.scss'
 
 type ConnectToWalletButtonProps = {}
@@ -51,10 +53,11 @@ const ConnectToWalletButton: FC<ConnectToWalletButtonProps> = () => {
 	)
 
 	return (
-		<button className={styles.ConnectToWalletButton}
-			onClick={e => connectWallet()}>
+		<Button className={styles.ConnectToWalletButton}
+			colorScheme='green'
+			onClick={connectWallet}>
 			Connect Wallet
-		</button>
+		</Button>
 	)
 
 }
