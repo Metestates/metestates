@@ -3,8 +3,6 @@ import React from 'react'
 import Head from 'next/head'
 import { AppPropsType } from 'next/dist/shared/lib/utils'
 
-import { useEthers } from '@usedapp/core'
-
 import localForage from 'localforage'
 
 import {
@@ -24,11 +22,6 @@ import {
 	Config,
 	DAppProvider,
 } from '@usedapp/core'
-
-import ITokenMetadata from '../types/token'
-
-import TokenBalance from '../components/TokenBalance/TokenBalance'
-import ConnectToWalletButton from '../components/ConnectToWalletButton/ConnectToWalletButton'
 
 const getApolloClient = async (): Promise<ApolloClient<NormalizedCacheObject>> => {
 
@@ -73,13 +66,6 @@ const SafeHydrate = ({ children }: React.PropsWithChildren<any>) => (
 	</div>
 )
 
-const MANA: ITokenMetadata = {
-	name: 'Decentraland',
-	symbol: 'MANA',
-	address: '0x0f5d2fb29fb7d3cfee444a200298f468908cc942',
-	decimals: 18,
-}
-
 const SiteTitle = 'Metestates'
 const SiteDescription = 'Become the next land-baron!'
 
@@ -98,10 +84,6 @@ const dappProviderConfig: Config = {
 // import './App.scss'
 
 const App = ({ Component, pageProps }: AppPropsType) => {
-
-	const { account: address } = useEthers()
-
-	// See: https://etherscan.io/token/0x0f5d2fb29fb7d3cfee444a200298f468908cc942
 
 	return (
 		<SafeHydrate>
@@ -132,22 +114,7 @@ const App = ({ Component, pageProps }: AppPropsType) => {
 
 						</Head>
 
-						<header>
-							{
-								!address &&
-								<ConnectToWalletButton />
-							}
-							{
-								address &&
-								<TokenBalance token={MANA} address={address} />
-							}
-						</header>
-
-						<main>
-
-							<Component {...pageProps} />
-
-						</main>
+						<Component {...pageProps} />
 
 					</div>
 				</DAppProvider>
