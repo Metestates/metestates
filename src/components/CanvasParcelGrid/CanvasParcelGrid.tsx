@@ -4,10 +4,10 @@ import { ApolloClient, useApolloClient } from '@apollo/client';
 
 import { css } from '@emotion/css';
 
-import { Color } from '../../types/color';
-import { Parcel } from '../../types/parcel';
-import { Coordinate } from '../../types/coordinate';
-import { Dimensions } from '../../types/dimensions';
+import Color from '../../types/color';
+import Parcel from '../../types/parcel';
+import Coordinate from '../../types/coordinate';
+import Dimensions from '../../types/dimensions';
 
 import AppConfig from '../../config/app-config';
 

@@ -5,7 +5,7 @@ import {
 
 import { GET_PARCEL_BLOCK, GET_PARCEL_BLOCKVariables } from './__generated__/GET_PARCEL_BLOCK'
 
-import { Coordinate } from "../types/coordinate";
+import Coordinate from "../types/coordinate";
 
 import getBlockDataQuery from '../queries/getBlockData';
 

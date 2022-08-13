@@ -4,7 +4,7 @@ import { css } from '@emotion/css'
 
 import { useEthers } from '@usedapp/core'
 
-import { Parcel } from '../../types/parcel'
+import Parcel from '../../types/parcel'
 import ITokenMetadata from '../../types/token'
 
 import AppConfig from '../../config/app-config'

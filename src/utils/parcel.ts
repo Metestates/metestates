@@ -1,7 +1,7 @@
-import { Parcel } from '../types/parcel'
+import Parcel from '../types/parcel'
 
-import { Color } from '../types/color'
-import { Coordinate } from '../types/coordinate'
+import Color from '../types/color'
+import Coordinate from '../types/coordinate'
 
 import { DAOContractAddress } from '../constants/DAOContractAddress'
 

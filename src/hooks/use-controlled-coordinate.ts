@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Coordinate } from '../types/coordinate'
+import Coordinate from '../types/coordinate'
 
 import AppConfig from '../config/app-config'
 

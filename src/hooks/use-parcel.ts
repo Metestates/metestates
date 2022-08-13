@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client'
 
-import { Parcel } from '../types/parcel'
-import { Coordinate } from '../types/coordinate'
+import Parcel from '../types/parcel'
+import Coordinate from '../types/coordinate'
 
 import { findParcel, getBlockCoordinate } from '../utils/parcel'
 
