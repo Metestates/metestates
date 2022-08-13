@@ -111,7 +111,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
 
   const apolloClient = useApolloClient()
 
-  const cache: BlockDataResultPromiseCache  = {}
+  const cache: BlockDataResultPromiseCache = React.useMemo(() => ({}), [])
 
   const drawParcels = React.useCallback(() => {
 
@@ -206,11 +206,14 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     }
 
   }, [
+    apolloClient,
+    cache,
+    parcelSize,
     context,
     size,
-    parcelSizeRef.current,
-    originRef.current,
-    selectedParcelRef.current
+    // parcelSizeRef.current,
+    // originRef.current,
+    // selectedParcelRef.current
   ])
 
   const drawParcelsRef = React.useRef(drawParcels)
@@ -265,10 +268,13 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
         })
 
   }, [
-    canvasRef.current,
-    originRef.current,
-    parcelSizeRef.current,
-    selectedParcelRef.current,
+    apolloClient,
+    cache,
+    parcelSize,
+    // canvasRef.current,
+    // originRef.current,
+    // parcelSizeRef.current,
+    // selectedParcelRef.current,
   ])
 
   React.useEffect(function setCanvasContext() {
@@ -299,13 +305,14 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     }
 
   }, [
-    canvasRef.current,
+    // canvasRef.current,
     setContext,
   ])
 
   React.useEffect(
     drawParcels,
     [
+      drawParcels,
       context,
       size,
       parcelSizeRef.current,
