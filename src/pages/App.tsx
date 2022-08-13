@@ -3,6 +3,8 @@ import React from 'react'
 import Head from 'next/head'
 import { AppPropsType } from 'next/dist/shared/lib/utils'
 
+import { ChakraProvider } from '@chakra-ui/react'
+
 import localForage from 'localforage'
 
 import {
@@ -91,34 +93,36 @@ const App = ({ Component, pageProps }: AppPropsType) => {
 		<SafeHydrate>
 			<ApolloProvider client={client}>
 				<DAppProvider config={dappProviderConfig}>
-					<div className='App'>
+					<ChakraProvider resetCSS={true}>
+						<div className='App'>
 
-						<Head>
+							<Head>
 
-							<meta charSet="utf-8" />
-							<meta name="Author" content="" />
-							<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-							<link rel="shortcut icon" href="/favicon.ico" />
-							<link rel="icon" href="/favicon.ico" />
+								<meta charSet="utf-8" />
+								<meta name="Author" content="" />
+								<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+								<link rel="shortcut icon" href="/favicon.ico" />
+								<link rel="icon" href="/favicon.ico" />
 
-							<title>{`${SiteDescription} - ${SiteTitle}`}</title>
+								<title>{`${SiteDescription} - ${SiteTitle}`}</title>
 
-							<meta name="Description" content="" />
+								<meta name="Description" content="" />
 
-							<meta property="og:type" content="website" />
-							<meta property="og:title" content={SiteDescription} />
-							<meta property="og:description" content={SiteDescription} />
-							<meta property="og:site_name" content={SiteTitle} />
-							<meta property="twitter:card" content="summary" />
-							<meta property="twitter:creator" content='@Metestates' />
-							<meta property="twitter:title" content={SiteTitle} />
-							<meta property="twitter:description" content={SiteDescription} />
+								<meta property="og:type" content="website" />
+								<meta property="og:title" content={SiteDescription} />
+								<meta property="og:description" content={SiteDescription} />
+								<meta property="og:site_name" content={SiteTitle} />
+								<meta property="twitter:card" content="summary" />
+								<meta property="twitter:creator" content='@Metestates' />
+								<meta property="twitter:title" content={SiteTitle} />
+								<meta property="twitter:description" content={SiteDescription} />
 
-						</Head>
+							</Head>
 
-						<Component {...pageProps} />
+							<Component {...pageProps} />
 
-					</div>
+						</div>
+					</ChakraProvider>
 				</DAppProvider>
 			</ApolloProvider>
 		</SafeHydrate>
