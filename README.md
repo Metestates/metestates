@@ -9,8 +9,7 @@ The new digital land-rush is upon us! Will you become the next land-baron?
 ## Dependencies
 
 ```bash
-$ npm i -g graphql apollo
-changed 478 packages, and audited 479 packages in 16s
+$ npm i -g graphql apollo craco gh-pages
 
 $ nvm use 16
 Now using node v16.13.1 (npm v8.1.2)
@@ -22,11 +21,13 @@ $ npm --version
 8.1.2
 
 $ npm list -g
-~/.nvm/versions/node/v16.13.1/lib
-├── apollo@2.33.9
-├── corepack@0.10.0
-├── graphql@16.1.0
-└── npm@8.1.2
+/Users/michaelzalla/.nvm/versions/node/v16.13.1/lib
+├── apollo@2.34.0
+├── craco@0.0.3
+├── gh-pages@4.0.0
+├── graphql@16.5.0
+├── npm@7.7.6
+└── npmrc@1.1.1
 ```
 
 ## Codegen
