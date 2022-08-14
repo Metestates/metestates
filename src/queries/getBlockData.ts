@@ -18,7 +18,7 @@ const getBlockDataQuery = gql`
 			where: { x_gte: $xGte, x_lt: $xLt, y_lte: $yLte, y_gt: $yGt }
 		) {
 			id
-			# tokenId
+			tokenId
 			owner {
 				address
 			}
@@ -30,8 +30,8 @@ const getBlockDataQuery = gql`
 			# 	ipns
 			# }
 			estate {
-				# id
-				# tokenId
+				id
+				tokenId
 				owner {
 					address
 				}
