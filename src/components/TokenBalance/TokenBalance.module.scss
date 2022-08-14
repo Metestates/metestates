@@ -3,7 +3,7 @@
 	font-size: 14px;
 }
 
-.TokenBalance .wrapper {
+.TokenBalanceWrapper {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -11,17 +11,17 @@
 	gap: 1em;
 }
 
-.TokenBalance .left,
-.TokenBalance .right {
+.TokenBalanceLeft,
+.TokenBalanceRight {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-.TokenBalance .right span {
+.TokenBalanceSpan {
 	line-height: 1.2;
 }
 
-.TokenBalance .paper {
+.TokenBalanceJazzicon .paper {
 	border: 2px solid #1098fc;
 }

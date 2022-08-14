@@ -11,6 +11,11 @@
 # testing
 /coverage
 
+# next.js
+.next
+./out
+public/vercel.svg
+
 # production
 /build
 

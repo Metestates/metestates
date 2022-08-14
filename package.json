@@ -16,25 +16,21 @@
     "jazzicon": "^1.5.0",
     "localforage": "^1.10.0",
     "memoize-one": "^6.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-jazzicon": "^1.0.4",
-    "react-scripts": "4.0.3",
-    "react-window": "^1.8.7",
-    "typescript": "^4.1.2",
-    "web-vitals": "^2.1.4"
+    "next": "^12.2.5",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-jazzicon": "^1.0.4"
   },
   "scripts": {
     "postinstall": "npm run apollo:download-schema && npm run apollo:codegen",
     "apollo:download-schema": "apollo client:download-schema ./marketplace.schema.json",
     "apollo:codegen": "apollo codegen:generate --localSchemaFile=./marketplace.schema.json --target=typescript --tagName=gql",
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "browse": "open https://github.com/Metestates/metestates/",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "pages:deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +51,6 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^6.4.5",
     "@emotion/core": "^11.0.0",
     "@emotion/css": "^11.5.0",
     "@types/graphql": "^14.5.0",
@@ -63,11 +58,11 @@
     "@types/node": "^18.7.2",
     "@types/react": "^17.0.48",
     "@types/react-dom": "^18.0.6",
-    "@types/react-window": "^1.8.5",
     "@typescript-eslint/parser": "^4.33.0",
-    "autoprefixer": "^9.8.8",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^12.2.5",
     "gh-pages": "^3.2.3",
-    "postcss": "^7.0.39",
+    "sass": "^1.54.4",
     "tailwind": "^4.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
