@@ -24,11 +24,11 @@ const getBlockDataQuery = gql`
 			}
 			x
 			y
-			# data {
-			# 	name
-			# 	description
-			# 	ipns
-			# }
+			data {
+				name
+				description
+				ipns
+			}
 			estate {
 				id
 				tokenId
