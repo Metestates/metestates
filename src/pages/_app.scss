@@ -13,10 +13,15 @@
 
 	padding: 12px;
 
+	color: white;
 	background-color: black;
 
 }
 
 .App main {
-	color: white;
+
+	[id*="popover-header"] {
+		color: white;
+	}
+
 }
