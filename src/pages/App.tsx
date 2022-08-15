@@ -42,11 +42,13 @@ const getApolloClient = async (): Promise<ApolloClient<NormalizedCacheObject>> =
 	// @NOTE(mzalla) See:
 	// https://github.com/apollographql/apollo-cache-persist/blob/HEAD/docs/advanced-usage.md#additional-options
 
-	await persistCache({
-		cache: cache,
-		maxSize: false,
-		storage: new LocalForageWrapper(localForage),
-	})
+	if(typeof window !== 'undefined') {
+		await persistCache({
+			cache: cache,
+			maxSize: false,
+			storage: new LocalForageWrapper(localForage),
+		})
+	}
 
 	const client = new ApolloClient({
 		// https://api.decentraland.org/v1/tiles
