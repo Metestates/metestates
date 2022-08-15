@@ -38,7 +38,9 @@ const nextConfig = {
 
     return config
 
-  }
+  },
+
+  basePath: process.env.NEXTJS_BASE_PATH,
 
 }
 
