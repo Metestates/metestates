@@ -26,9 +26,10 @@
     "apollo:download-schema": "apollo client:download-schema ./marketplace.schema.json",
     "apollo:codegen": "apollo codegen:generate --localSchemaFile=./marketplace.schema.json --target=typescript --tagName=gql",
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run clean && next build",
     "start": "next start",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf ./build/*",
     "browse": "open https://github.com/Metestates/metestates/",
     "pages:deploy": "npm run build && gh-pages -d build"
   },
