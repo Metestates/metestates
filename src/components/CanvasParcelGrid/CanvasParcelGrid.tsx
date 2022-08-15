@@ -321,24 +321,27 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
   )
 
   return (
-    <nav className="CanvasParcelGrid" data-testid="CanvasParcelGrid">
+    <nav className={`CanvasParcelGrid ${css({
+      position: `fixed`,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: -1,
+      backgroundColor: `black`,
+      width: `${size.width}px`,
+      height: `${size.height}px`,
+      '&:hover': {
+        cursor: `pointer`,
+      },
+    })}`} data-testid="CanvasParcelGrid">
 
       <canvas ref={canvasRef}
         width={size.width} height={size.height}
         onMouseMove={(e) => handleMouseMove(e)}
         className={css({
-          position: `fixed`,
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: -1,
-          backgroundColor: `black`,
           width: `${size.width}px`,
           height: `${size.height}px`,
-          '&:hover': {
-            cursor: `pointer`,
-          },
         })} />
 
 	  </nav>
