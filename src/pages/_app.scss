@@ -19,5 +19,9 @@
 }
 
 .App main {
-	color: white;
+
+	[id*="popover-header"] {
+		color: white;
+	}
+
 }

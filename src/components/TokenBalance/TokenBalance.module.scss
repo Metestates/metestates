@@ -22,6 +22,11 @@
 	line-height: 1.2;
 }
 
-.TokenBalanceJazzicon .paper {
+.TokenBalanceJazziconWrapper {
 	border: 2px solid #1098fc;
+	border-radius: 50%;
+	box-sizing: content-box;
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
 }

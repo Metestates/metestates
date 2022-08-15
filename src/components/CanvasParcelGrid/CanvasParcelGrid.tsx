@@ -111,7 +111,7 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
 
   const apolloClient = useApolloClient()
 
-  const cache: BlockDataResultPromiseCache  = {}
+  const cache: BlockDataResultPromiseCache = React.useMemo(() => ({}), [])
 
   const drawParcels = React.useCallback(() => {
 
@@ -206,11 +206,14 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     }
 
   }, [
+    apolloClient,
+    cache,
+    parcelSize,
     context,
     size,
-    parcelSizeRef.current,
-    originRef.current,
-    selectedParcelRef.current
+    // parcelSizeRef.current,
+    // originRef.current,
+    // selectedParcelRef.current
   ])
 
   const drawParcelsRef = React.useRef(drawParcels)
@@ -265,10 +268,13 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
         })
 
   }, [
-    canvasRef.current,
-    originRef.current,
-    parcelSizeRef.current,
-    selectedParcelRef.current,
+    apolloClient,
+    cache,
+    parcelSize,
+    // canvasRef.current,
+    // originRef.current,
+    // parcelSizeRef.current,
+    // selectedParcelRef.current,
   ])
 
   React.useEffect(function setCanvasContext() {
@@ -299,13 +305,14 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
     }
 
   }, [
-    canvasRef.current,
+    // canvasRef.current,
     setContext,
   ])
 
   React.useEffect(
     drawParcels,
     [
+      drawParcels,
       context,
       size,
       parcelSizeRef.current,
@@ -314,24 +321,27 @@ const CanvasParcelGrid: FC<CanvasParcelGridProps> = ({
   )
 
   return (
-    <nav className="CanvasParcelGrid" data-testid="CanvasParcelGrid">
+    <nav className={`CanvasParcelGrid ${css({
+      position: `fixed`,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: -1,
+      backgroundColor: `black`,
+      width: `${size.width}px`,
+      height: `${size.height}px`,
+      '&:hover': {
+        cursor: `pointer`,
+      },
+    })}`} data-testid="CanvasParcelGrid">
 
       <canvas ref={canvasRef}
         width={size.width} height={size.height}
         onMouseMove={(e) => handleMouseMove(e)}
         className={css({
-          position: `fixed`,
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: -1,
-          backgroundColor: `black`,
           width: `${size.width}px`,
           height: `${size.height}px`,
-          '&:hover': {
-            cursor: `pointer`,
-          },
         })} />
 
 	  </nav>

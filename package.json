@@ -5,6 +5,9 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.5.5",
+    "@chakra-ui/react": "^2.2.6",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
     "@ethersproject/bignumber": "^5.6.2",
     "@ethersproject/contracts": "^5.6.2",
     "@ethersproject/units": "^5.6.1",
@@ -13,6 +16,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@usedapp/core": "^1.1.5",
     "apollo3-cache-persist": "^0.13.0",
+    "framer-motion": "^6.5.1",
     "jazzicon": "^1.5.0",
     "localforage": "^1.10.0",
     "memoize-one": "^6.0.0",

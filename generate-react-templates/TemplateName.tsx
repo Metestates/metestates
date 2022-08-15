@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styles from './TemplateName.css';
+import styles from './TemplateName.module.scss';
 
 type TemplateNameProps = React.PropsWithChildren<{}>
 

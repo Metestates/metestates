@@ -18,20 +18,20 @@ const getBlockDataQuery = gql`
 			where: { x_gte: $xGte, x_lt: $xLt, y_lte: $yLte, y_gt: $yGt }
 		) {
 			id
-			# tokenId
+			tokenId
 			owner {
 				address
 			}
 			x
 			y
-			# data {
-			# 	name
-			# 	description
-			# 	ipns
-			# }
+			data {
+				name
+				description
+				ipns
+			}
 			estate {
-				# id
-				# tokenId
+				id
+				tokenId
 				owner {
 					address
 				}
