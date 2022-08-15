@@ -44,7 +44,13 @@ function useMousewheelScalable(
 			window.removeEventListener(`wheel`, onMouseWheel)
 		}
 
-	}, [scalableValue, setScalableValue])
+	}, [
+		options.delta,
+		options.maxValue,
+		options.minValue,
+		scalableValue,
+		setScalableValue,
+	])
 
 	return scalableValue
 

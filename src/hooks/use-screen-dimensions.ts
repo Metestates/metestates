@@ -26,10 +26,7 @@ const useScreenDimensions = (): UseScreenDimensionsHookResult => {
 			window.removeEventListener(`resize`, onWindowResize)
 		}
 
-	}, [
-		window.innerWidth,
-		window.innerHeight
-	])
+	}, [])
 
 	return screenDimensions
 
